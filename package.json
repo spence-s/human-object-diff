@@ -1,0 +1,102 @@
+{
+  "name": "human-object-diff",
+  "description": "Human Readable Difference Between Two Objects",
+  "version": "0.0.1",
+  "author": "Spencer Snyder <sasnyde2@gmail.com> (http://spencersnyder.io/)",
+  "bugs": {
+    "url": "https://github.com/Spence-S/human-object-diff/issues",
+    "email": "sasnyde2@gmail.com"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "contributors": [
+    "Spencer Snyder <sasnyde2@gmail.com> (http://spencersnyder.io/)"
+  ],
+  "dependencies": {
+    "date-fns": "^2.8.1",
+    "deep-diff": "^1.0.2",
+    "fast-deep-equal": "^3.1.1",
+    "humanize-string": "^2.1.0",
+    "titleize": "^2.1.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "ava": "latest",
+    "codecov": "latest",
+    "cross-env": "latest",
+    "eslint": "latest",
+    "eslint-config-xo-lass": "latest",
+    "fixpack": "latest",
+    "husky": "latest",
+    "lint-staged": "latest",
+    "nyc": "latest",
+    "remark-cli": "latest",
+    "remark-preset-github": "latest",
+    "xo": "latest"
+  },
+  "engines": {
+    "node": ">=8.3"
+  },
+  "homepage": "https://github.com/Spence-S/human-object-diff",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "keywords": [
+    "deep-diff",
+    "human-readable",
+    "humanize",
+    "object-diff"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "xo --fix",
+      "git add"
+    ],
+    "*.md": [
+      "remark . -qfo",
+      "git add"
+    ],
+    "package.json": [
+      "fixpack",
+      "git add"
+    ]
+  },
+  "main": "index.js",
+  "prettier": {
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "trailingComma": "none"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "preset-github"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Spence-S/human-object-diff"
+  },
+  "scripts": {
+    "ava": "cross-env NODE_ENV=test ava",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "lint": "xo && remark . -qfo",
+    "nyc": "cross-env NODE_ENV=test nyc ava",
+    "test": "npm run lint && npm run ava",
+    "test-coverage": "npm run lint && npm run nyc"
+  },
+  "xo": {
+    "prettier": true,
+    "space": true,
+    "extends": [
+      "xo-lass"
+    ]
+  }
+}
