@@ -26,7 +26,7 @@ test('processes an array', t => {
     base: [1, 2, 2, 5]
   };
 
-  t.is(t.context.hr(lhs, rhs), [
+  t.deepEqual(t.context.hr(lhs, rhs), [
     '"Bar", with a value of "hello" (at Obj.bar) was changed to "hello world"',
     '"Baz", with a value of "12" (at Obj.baz) was changed to "10"',
     '"Chip", with a value of "dale" (at Obj.chip) was removed',
