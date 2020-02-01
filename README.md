@@ -15,7 +15,10 @@
 
 * [Install](#install)
 * [Usage](#usage)
+* [Configuring](#configuring)
+  * [Options](#options)
   * [Support for Dates](#support-for-dates)
+  * [Prefiltering](#prefiltering)
 * [Contributors](#contributors)
 * [License](#license)
 
@@ -24,13 +27,13 @@
 
 [npm][]:
 
-```sh
+```bash
 npm install human-object-diff
 ```
 
 [yarn][]:
 
-```sh
+```bash
 yarn add human-object-diff
 ```
 
@@ -50,14 +53,44 @@ console.log(humanObjectDiff.renderName());
 // -> ['Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
 ```
 
+
+## Configuring
+
+### Options
+
+`human-object-diff` supports a variety of options to allow you to take control over the output of your object diff. Future versions will allow users to fully customize sentence structure.
+
+| Option       | type        | Default              | Description                                                                                     |
+| ------------ | ----------- | -------------------- | ----------------------------------------------------------------------------------------------- |
+| objectName   | String      | 'Obj'                | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
+| prefilter    | Array\|Func |                      | see [prefiltering](#prefiltering)                                                               |
+| dateFormat   | String      | 'MM/dd/yyyy hh:mm a' | dateFns format string see [below](#support-for-dates)                                           |
+| futureTense  | Bool        | 'past'               | If set to true, sentences will output "will be" changed instead of "was changed"                |
+| hidePath     | Bool        | false                | If set to true, path..ie "(Obj.foo)".. is suppressed making the output less technical           |
+| ignoreArrays | Bool        | false                | If array differences aren't needed. Set to true and skip processing                             |
+
 ### Support for Dates
 
-`human-object-diff` uses `date-fns` format function under the hood
-to show human readable date differences. We also supply a
-`dateFormat` option where you can supply your own
-date formatting string. Please note, that date-fns format
-strings are different from moment.js format strings. Please
-refer to the documentation [here](https://date-fns.org/v2.8.1/docs/format) and [here](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)
+`human-object-diff` uses `date-fns` format function under the hood to show human readable date differences. We also supply a `dateFormat` option where you can supply your own date formatting string. Please note, that date-fns format strings are different from moment.js format strings. Please refer to the documentation [here](https://date-fns.org/v2.8.1/docs/format) and [here](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)
+
+### Prefiltering
+
+There may be some paths in your object diffs that you'd like to ignore. You can do that with prefiltering. As a convenience, ou can add this option as an array of strings, which are the keys of the base path of the object.
+
+for instance
+
+```js
+const lhs = { foo: 'bar', biz: { foo: 'baz' } };
+const rhs = { foo: 'bar', biz: { foo: 'buzz' } };
+
+hrDiff(lhs, rhs, ['foo']);
+```
+
+You would still see the diffs for `biz.foo` but you would ignore the diff for `foo`.
+
+You can also pass a function for this option which will be directly passed to the [underlying diff library](https://www.npmjs.com/package/deep-diff).
+
+The prefilter function takes a signature of `function(path, key)`
 
 
 ## Contributors
