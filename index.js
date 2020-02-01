@@ -43,6 +43,12 @@ function humanReadableDiff(lhs, rhs, config = {}) {
   const ignoreArrays = config.ignoreArrays || false;
   const arrayMem = [];
 
+  let prefilter;
+  if (Array.isArray(config.prefilter))
+    prefilter = (path, key) =>
+      path.length === 0 && config.prefilter.includes(key);
+  else if (typeof config.prefilter === 'function') prefilter = config.prefilter;
+
   function humanize(prop) {
     return dontHumanizePropertyNames ? prop : titleize(humanizeStr(prop));
   }
@@ -141,7 +147,7 @@ function humanReadableDiff(lhs, rhs, config = {}) {
   }
 
   function humanReadable(lhs, rhs) {
-    const differences = deepdiff(lhs, rhs);
+    const differences = deepdiff(lhs, rhs, prefilter);
     if (!differences) return [];
     const changes = differences.reduce(reducer, []);
     const arrDiffs = processArray(arrayMem, lhs, rhs);

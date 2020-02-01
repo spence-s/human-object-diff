@@ -83,14 +83,32 @@ for instance
 const lhs = { foo: 'bar', biz: { foo: 'baz' } };
 const rhs = { foo: 'bar', biz: { foo: 'buzz' } };
 
-hrDiff(lhs, rhs, ['foo']);
+hrDiff(lhs, rhs, { prefilter: ['foo'] });
 ```
 
 You would still see the diffs for `biz.foo` but you would ignore the diff for `foo`.
 
 You can also pass a function for this option which will be directly passed to the [underlying diff library](https://www.npmjs.com/package/deep-diff).
 
-The prefilter function takes a signature of `function(path, key)`
+The prefilter function takes a signature of `function(path, key)`. Here path is an array that represents the path leading up to the object property. The key is the key, or what would be the final element of the path. The function returns true for any paths you would want to ignore.
+
+For instance, in the object below:
+
+```js
+const obj = { foo: { bar: [1, 2, { baz: 'buzz' }] } };
+```
+
+The path and key for `foo` would be path \[] and key 'foo'.
+
+The path and key for `foo.bar` would be path \['foo'] key 'bar'
+
+for `foo.bar[2].baz` it would be path: \['foo', 'bar', 2] and key 'baz'
+
+To ignore changes in `foo.bar` you could pass a functions like
+
+```js
+const prefilter = (path, key) => path[0] === 'foo' && key === 'bar';
+```
 
 
 ## Contributors

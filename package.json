@@ -34,8 +34,6 @@
     "husky": "latest",
     "lint-staged": "latest",
     "nyc": "latest",
-    "remark-cli": "latest",
-    "remark-preset-github": "latest",
     "xo": "latest"
   },
   "engines": {
@@ -58,10 +56,6 @@
   "lint-staged": {
     "*.js": [
       "xo --fix",
-      "git add"
-    ],
-    "*.md": [
-      "remark . -qfo",
       "git add"
     ],
     "package.json": [
@@ -87,7 +81,7 @@
   "scripts": {
     "ava": "cross-env NODE_ENV=test ava",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "xo && remark . -qfo",
+    "lint": "xo",
     "nyc": "cross-env NODE_ENV=test nyc ava",
     "test": "yarn run lint && yarn run ava",
     "test-coverage": "yarn run lint && yarn run nyc"
