@@ -37,11 +37,16 @@ function humanReadableDiff(lhs, rhs, config = {}) {
   const objectName = config.objectName || 'Obj';
   const dontHumanizePropertyNames = config.dontHumanizePropertyNames || false;
   const tense = config.tense || 'past';
-  // const noTechTerms = config.noTechTerms || false;
+  const techTerms = config.techTerms !== false;
   const dateFormat = config.dateFormat || 'MM/dd/yyyy hh:mm a';
-  const hidePath = config.hidePath || false;
+  const hidePath = config.hidePath ? techTerms : false;
   const ignoreArrays = config.ignoreArrays || false;
   const arrayMem = [];
+
+  const terms = {
+    array: techTerms ? 'Array' : 'List',
+    index: techTerms ? 'index' : 'position'
+  };
 
   let prefilter;
   if (Array.isArray(config.prefilter))
@@ -57,7 +62,7 @@ function humanReadableDiff(lhs, rhs, config = {}) {
     let propertyIndex = diff.path.length - 1;
     while (typeof diff.path[propertyIndex] !== 'string') propertyIndex -= 1;
     const property = diff.path[propertyIndex];
-    if (diff.dotPath) return `Array "${humanize(property)}"`;
+    if (diff.dotPath) return `${terms.array} "${humanize(property)}"`;
     return `"${humanize(property)}"`;
   }
 
@@ -138,7 +143,9 @@ function humanReadableDiff(lhs, rhs, config = {}) {
     let diffString = '';
 
     if (diff.dotPath) {
-      diffString = `${property} ${path},${propertyValue} ${verb} at index ${diff.index}`;
+      diffString = `${property} ${path},${propertyValue} ${verb} at ${
+        terms.index
+      } ${techTerms ? diff.index : diff.index + 1}`;
     } else if (path)
       diffString = `${property},${propertyValue} ${path} ${verb}`;
     else diffString = `${property},${propertyValue} ${verb}`;

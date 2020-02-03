@@ -10,18 +10,16 @@
 
 > Configurable Human Readable Difference Between Two Plain Objects
 
-
 ## Table of Contents
 
-* [Install](#install)
-* [Usage](#usage)
-* [Configuring](#configuring)
-  * [Options](#options)
-  * [Support for Dates](#support-for-dates)
-  * [Prefiltering](#prefiltering)
-* [Contributors](#contributors)
-* [License](#license)
-
+- [Install](#install)
+- [Usage](#usage)
+- [Configuring](#configuring)
+  - [Options](#options)
+  - [Support for Dates](#support-for-dates)
+  - [Prefiltering](#prefiltering)
+- [Contributors](#contributors)
+- [License](#license)
 
 ## Install
 
@@ -36,7 +34,6 @@ npm install human-object-diff
 ```bash
 yarn add human-object-diff
 ```
-
 
 ## Usage
 
@@ -53,21 +50,21 @@ console.log(humanObjectDiff.renderName());
 // -> ['Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
 ```
 
-
 ## Configuring
 
 ### Options
 
 `human-object-diff` supports a variety of options to allow you to take control over the output of your object diff. Future versions will allow users to fully customize sentence structure.
 
-| Option       | type        | Default              | Description                                                                                     |
-| ------------ | ----------- | -------------------- | ----------------------------------------------------------------------------------------------- |
-| objectName   | String      | 'Obj'                | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
-| prefilter    | Array\|Func |                      | see [prefiltering](#prefiltering)                                                               |
-| dateFormat   | String      | 'MM/dd/yyyy hh:mm a' | dateFns format string see [below](#support-for-dates)                                           |
-| futureTense  | Bool        | 'past'               | If set to true, sentences will output "will be" changed instead of "was changed"                |
-| hidePath     | Bool        | false                | If set to true, path..ie "(Obj.foo)".. is suppressed making the output less technical           |
-| ignoreArrays | Bool        | false                | If array differences aren't needed. Set to true and skip processing                             |
+| Option       | type        | Default              | Description                                                                                      |
+| ------------ | ----------- | -------------------- | ------------------------------------------------------------------------------------------------ |
+| objectName   | String      | 'Obj'                | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true  |
+| prefilter    | Array\|Func |                      | see [prefiltering](#prefiltering)                                                                |
+| dateFormat   | String      | 'MM/dd/yyyy hh:mm a' | dateFns format string see [below](#support-for-dates)                                            |
+| futureTense  | Bool        | 'past'               | If set to true, sentences will output "will be" changed instead of "was changed"                 |
+| hidePath     | Bool        | false                | If set to true, path..ie "(Obj.foo)".. is suppressed making the output less technical            |
+| techTerms    | Bool        | true                 | False causes paths to be hidden, "Array" will be changed to list and "index" changed to position |
+| ignoreArrays | Bool        | false                | If array differences aren't needed. Set to true and skip processing                              |
 
 ### Support for Dates
 
@@ -110,6 +107,28 @@ To ignore changes in `foo.bar` you could pass a functions like
 const prefilter = (path, key) => path[0] === 'foo' && key === 'bar';
 ```
 
+## A Note On Arrays
+
+`human-object-diff` parses arrays in an opinionated way. It does it's best to resolve Arrays into groups of insertions and removals. Typical diff libraries look at arrays on an element by element basis and emit a difference for every changes element. While this is benefical for many programatic tasks, humans typically don't look at arrays in the same way. `human-object-diff` attempts to reduce array changes to a number of insertions, removals, and edits. An example can better describe the difference.
+
+```js
+const lhs = [1, 2, 3, 4];
+const rhs = [0, 1, 2, 3, 4];
+```
+
+Consider the above arrays and their differences. A typical array diff would behave like this and output something like the following.
+
+1. A change at index 0 from 1 to 0
+2. A change at index 1 from 2 to 1
+3. A change at index 2 from 3 to 2
+4. A change at index 3 from 4 to 3
+5. An addition of 4 at index 4
+
+`human-object-diff` attempts to reduce these differences to something like the following.
+
+1. An insertion of 0 at index 0. ("Array 'lhs' had a value of 0 inserted at index 0")
+
+This is much more understandable to a human brain. We've simply inserted a number at an index.
 
 ## Contributors
 
@@ -117,14 +136,11 @@ const prefilter = (path, key) => path[0] === 'foo' && key === 'bar';
 | ------------------ | -------------------------- |
 | **Spencer Snyder** | <http://spencersnyder.io/> |
 
-
 ## License
 
 [MIT](LICENSE) © [Spencer Snyder](http://spencersnyder.io/)
 
-
-## 
+##
 
 [npm]: https://www.npmjs.com/
-
 [yarn]: https://yarnpkg.com/
