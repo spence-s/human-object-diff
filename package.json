@@ -1,7 +1,7 @@
 {
   "name": "human-object-diff",
   "description": "Human Readable Difference Between Two Objects",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "author": "Spencer Snyder <sasnyde2@gmail.com> (http://spencersnyder.io/)",
   "bugs": {
     "url": "https://github.com/Spence-S/human-object-diff/issues",
