@@ -23,18 +23,18 @@
     "titleize": "^2.1.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "latest",
-    "@commitlint/config-conventional": "latest",
-    "ava": "latest",
-    "codecov": "latest",
-    "cross-env": "latest",
-    "eslint": "latest",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "ava": "^3.4.0",
+    "codecov": "^3.6.5",
+    "cross-env": "^7.0.0",
+    "eslint": "^6.8.0",
     "eslint-config-xo-lass": "latest",
-    "fixpack": "latest",
-    "husky": "latest",
-    "lint-staged": "latest",
-    "nyc": "latest",
-    "xo": "latest"
+    "fixpack": "^3.0.5",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
+    "nyc": "^15.0.0",
+    "xo": "^0.27.1"
   },
   "engines": {
     "node": ">=8.3"
