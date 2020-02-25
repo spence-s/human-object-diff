@@ -21,7 +21,9 @@ function preProcessArray(diffs = [], lhs = [], rhs = []) {
 
       const changes = insertions
         .concat(
-          groupedDiff.filter(diff => diff.index < cutoff && diff.kind === 'E')
+          groupedDiff
+            .filter(diff => diff.index < cutoff && diff.kind === 'E')
+            .map(diff => ({ ...diff, kind: 'AE' }))
         )
         .map(diff => ({
           ...diff,

@@ -16,6 +16,7 @@
 - [Usage](#usage)
 - [Configuring](#configuring)
   - [Options](#options)
+  - [Custom Templates](#custom-templates)
   - [Support for Dates](#support-for-dates)
   - [Prefiltering](#prefiltering)
 - [Contributors](#contributors)
@@ -54,17 +55,50 @@ console.log(humanObjectDiff.renderName());
 
 ### Options
 
-`human-object-diff` supports a variety of options to allow you to take control over the output of your object diff. Future versions will allow users to fully customize sentence structure.
+`human-object-diff` supports a variety of options to allow you to take control over the output of your object diff.
 
-| Option       | type        | Default              | Description                                                                                      |
-| ------------ | ----------- | -------------------- | ------------------------------------------------------------------------------------------------ |
-| objectName   | String      | 'Obj'                | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true  |
-| prefilter    | Array\|Func |                      | see [prefiltering](#prefiltering)                                                                |
-| dateFormat   | String      | 'MM/dd/yyyy hh:mm a' | dateFns format string see [below](#support-for-dates)                                            |
-| futureTense  | Bool        | 'past'               | If set to true, sentences will output "will be" changed instead of "was changed"                 |
-| hidePath     | Bool        | false                | If set to true, path..ie "(Obj.foo)".. is suppressed making the output less technical            |
-| techTerms    | Bool        | true                 | False causes paths to be hidden, "Array" will be changed to list and "index" changed to position |
-| ignoreArrays | Bool        | false                | If array differences aren't needed. Set to true and skip processing                              |
+| Option       | type        | Default                            | Description                                                                                     |
+| ------------ | ----------- | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| objectName   | String      | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
+| prefilter    | Array\|Func |                                    | see [prefiltering](#prefiltering)                                                               |
+| dateFormat   | String      | 'MM/dd/yyyy hh:mm a'               | dateFns format string see [below](#support-for-dates)                                           |
+| ignoreArrays | Bool        | false                              | If array differences aren't needed. Set to true and skip processing                             |
+| templates    | Object      | see [templates](#custom-templates) | Completely customize the output.                                                                |
+
+### Custom Templates
+
+`human-object-dff` let's you fully customize your sentences by allowing you to pass custom sentence templates.
+
+The default template looks like the following:
+
+```js
+const templates = {
+  N: '"FIELD", with a value of "NEWVALUE" (at DOTPATH) was added',
+  D: '"FIELD", with a value of "OLDVALUE" (at DOTPATH) was removed',
+  E:
+    '"FIELD", with a value of "OLDVALUE" (at DOTPATH) was changed to "NEWVALUE"',
+  I:
+    'Array "FIELD" (at DOTPATH), had a value of "NEWVALUE" inserted at index INDEX',
+  R:
+    'Array "FIELD" (at DOTPATH), had a value of "OLDVALUE" removed at index INDEX',
+  AE:
+    'Array "FIELD" (at DOTPATH), had a value of "OLDVALUE" changed to "NEWVALUE" at index INDEX',
+  NS: '"FIELD" (at DOTPATH) was added',
+  DS: '"FIELD" (at DOTPATH) was removed',
+  ES: '"FIELD" (at DOTPATH) was changed',
+  IS: 'Array "FIELD" (at DOTPATH), had a value inserted at index INDEX',
+  RS: 'Array "FIELD" (at DOTPATH), had a value removed at index INDEX',
+  AES: 'Array "FIELD" (at DOTPATH), had a value changed at index INDEX'
+};
+```
+
+Where N is a new key, D is a deleted key, E is an edited key, I is an inserted array value, R is a removed array value, and AE is an edited array property.
+
+We also expose a sensitiveFields array option which will cause a path to use the S option template.
+
+You can define each sentence in templates to be whatever you'd like them to be and you can use the following codes that will be replaced by their diff values in the final output.
+
+The available values you can plug in to your sentences are `FIELD`, `DOTPATH`,`NEWVALUE`,`OLDVALUE`, `INDEX`, `POSITION`. Position is just index+1. Be aware that not all sentence types will have values for each token. For instance non array changes will not have a position or an index.
 
 ### Support for Dates
 

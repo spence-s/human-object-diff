@@ -1,89 +1,76 @@
 const test = require('ava');
-
 const hr = require('..');
 
 test.beforeEach(t => {
-  const objectName = 'rhs';
-  const options = { objectName };
-  t.context.hr = (lhs, rhs) => hr(lhs, rhs, options);
+  t.context.hr = hr;
 });
 
 test('humanReadable is a function', t => {
   t.true(typeof t.context.hr === 'function');
 });
 
-test('remove base property', t => {
-  const lhs = { foo: 'bar' };
+test('Describes an object new key addition', t => {
+  const lhs = {};
+  const rhs = {
+    bar: 'hello world'
+  };
+
+  t.deepEqual(t.context.hr(lhs, rhs), [
+    '"Bar", with a value of "hello world" (at Obj.bar) was added'
+  ]);
+});
+
+test('Describes an object key removal', t => {
+  const lhs = {
+    bar: 'hello world'
+  };
   const rhs = {};
-  t.is(
-    t.context.hr(lhs, rhs)[0],
-    '"Foo", with a value of "bar" (at rhs.foo) was removed'
-  );
+
+  t.deepEqual(t.context.hr(lhs, rhs), [
+    '"Bar", with a value of "hello world" (at Obj.bar) was removed'
+  ]);
 });
 
-test('add base property', t => {
-  const lhs = {};
-  const rhs = { foo: 'bar' };
-  t.is(
-    t.context.hr(lhs, rhs)[0],
-    '"Foo", with a value of "bar" (at rhs.foo) was added'
-  );
+test('Describes an object key edit', t => {
+  const lhs = { foo: 'hello' };
+  const rhs = {
+    foo: 'hello world'
+  };
+
+  t.deepEqual(t.context.hr(lhs, rhs), [
+    '"Foo", with a value of "hello" (at Obj.foo) was changed to "hello world"'
+  ]);
 });
 
-test('add nested property', t => {
-  const lhs = { foo: {} };
-  const rhs = { foo: { bar: 'baz' } };
+test('Describes an array insertion', t => {
+  const lhs = { foo: [1, 2, 3, 4, 5, 6] };
+  const rhs = {
+    foo: [1, 2, 3, 8, 4, 5, 6]
+  };
 
-  t.is(
-    t.context.hr(lhs, rhs)[0],
-    '"Bar", with a value of "baz" (at rhs.foo.bar) was added'
-  );
+  t.deepEqual(t.context.hr(lhs, rhs), [
+    'Array "Foo" (at Obj.foo), had a value of "8" inserted at index 3'
+  ]);
 });
 
-test('add base object property', t => {
-  const lhs = {};
-  const rhs = { foo: { bar: 'baz' } };
+test('Describes an array removal', t => {
+  const lhs = { foo: [1, 2, 3, 4, 5, 6] };
+  const rhs = {
+    foo: [1, 2, 4, 5, 6]
+  };
 
-  const string = '"Foo", with a value of {"bar":"baz"} (at rhs.foo) was added';
-
-  t.is(t.context.hr(lhs, rhs)[0], string);
+  t.deepEqual(t.context.hr(lhs, rhs), [
+    'Array "Foo" (at Obj.foo), had a value of "3" removed at index 2'
+  ]);
 });
 
-test('add base array property', t => {
-  const lhs = {};
-  const rhs = { foo: ['bar', 'baz'] };
+test('Describes an array edit', t => {
+  const lhs = { foo: [1, 2, 3, 4, 5, 6] };
+  const rhs = {
+    foo: [1, 2, 8, 4, 5, 6]
+  };
 
-  const string = '"Foo", with a value of ["bar","baz"] (at rhs.foo) was added';
-
-  t.is(t.context.hr(lhs, rhs)[0], string);
-});
-
-test('Shows a base property change', t => {
-  const lhs = { foo: 'blurp' };
-  const rhs = { foo: 'blam' };
-
-  const string =
-    '"Foo", with a value of "blurp" (at rhs.foo) was changed to "blam"';
-
-  t.is(t.context.hr(lhs, rhs)[0], string);
-});
-
-test('Shows a date change correctly', t => {
-  const lhs = { foo: new Date(2019, 11, 22, 17) };
-  const rhs = { foo: new Date(2019, 11, 25, 9) };
-
-  const string =
-    '"Foo", with a value of "12/22/2019 05:00 PM" (at rhs.foo) was changed to "12/25/2019 09:00 AM"';
-
-  t.is(t.context.hr(lhs, rhs)[0], string);
-});
-
-test('humanizes properties correctly', t => {
-  const lhs = { last_name: 'Johnson' };
-  const rhs = { last_name: 'Jacobson' };
-
-  const string =
-    '"Last Name", with a value of "Johnson" (at rhs.last_name) was changed to "Jacobson"';
-
-  t.is(t.context.hr(lhs, rhs)[0], string);
+  t.deepEqual(t.context.hr(lhs, rhs), [
+    'Array "Foo" (at Obj.foo), had a value of "3" changed to "8" at index 2'
+  ]);
 });
