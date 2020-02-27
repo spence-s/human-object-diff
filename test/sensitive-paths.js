@@ -1,9 +1,9 @@
 const test = require('ava');
-const hr = require('..');
+const HR = require('..');
 
 test.beforeEach(t => {
   const sensitivePaths = ['foo', 'bar', 'biz', 'arr', 'arr2', 'arr3'];
-  t.context.hr = (lhs, rhs) => hr(lhs, rhs, { sensitivePaths });
+  t.context.hr = new HR({ sensitivePaths }).diff;
 });
 
 test('humanReadable is a function', t => {

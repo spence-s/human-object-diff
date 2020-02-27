@@ -1,8 +1,8 @@
 const test = require('ava');
-const hr = require('..');
+const HR = require('..');
 
 test.beforeEach(t => {
-  t.context.hr = hr;
+  t.context.hr = new HR().diff;
 });
 
 test('humanReadable is a function', t => {

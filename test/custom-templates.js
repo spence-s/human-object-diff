@@ -1,5 +1,5 @@
 const test = require('ava');
-const hr = require('..');
+const HR = require('..');
 
 test.beforeEach(t => {
   const templates = {
@@ -10,7 +10,7 @@ test.beforeEach(t => {
     R: 'testing Arr "FIELD" (DOTPATH), "OLDVALUE" removed at INDEX',
     AE: 'testing Arr "FIELD" (DOTPATH), "OLDVALUE" "NEWVALUE" changed at INDEX'
   };
-  t.context.hr = (lhs, rhs) => hr(lhs, rhs, { templates });
+  t.context.hr = new HR({ templates }).diff;
 });
 
 test('humanReadable is a function', t => {

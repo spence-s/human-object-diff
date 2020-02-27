@@ -23,12 +23,12 @@ function preProcessArray(diffs = [], lhs = [], rhs = []) {
         .concat(
           groupedDiff
             .filter(diff => diff.index < cutoff && diff.kind === 'E')
-            .map(diff => ({ ...diff, kind: 'AE' }))
+            .map(diff => ({ ...diff, dotpath: path, kind: 'AE' }))
         )
         .map(diff => ({
           ...diff,
-          path: path.split('.'),
-          dotPath: path
+          path: path.split(/\[|\]|\./gi).filter(Boolean),
+          dotpath: path
         }));
       diffStrings = diffStrings.concat(changes);
     }
@@ -41,29 +41,10 @@ function groupDiffsByPath(diffs) {
   const diffGroups = {};
 
   for (const diff of diffs) {
-    let propertyIndex = diff.path.length - 1;
-
-    while (typeof diff.path[propertyIndex] !== 'string') propertyIndex -= 1;
-
-    const path = diff.path
-      .slice(0, propertyIndex + 1)
-      .reduce(
-        (acc, val, i) =>
-          typeof val === 'string'
-            ? typeof diff.path[i + 1] === 'string'
-              ? acc.concat(`${String(val)}.`)
-              : acc.concat(String(val))
-            : typeof diff.path[i + 1] === 'string'
-            ? acc.concat(`[${String(val)}].`)
-            : acc.concat(`[${String(val)}]`),
-        ''
-      );
-
     diff.index = diff.index || diff.path[diff.path.length - 1];
-
-    if (diffGroups[path] && Array.isArray(diffGroups[path]))
-      diffGroups[path].push(diff);
-    else diffGroups[path] = [diff];
+    if (diffGroups[diff.dotpath] && Array.isArray(diffGroups[diff.dotpath]))
+      diffGroups[diff.dotpath].push(diff);
+    else diffGroups[diff.dotpath] = [diff];
   }
 
   return diffGroups;

@@ -1,15 +1,15 @@
 const test = require('ava');
-const hr = require('..');
+const HR = require('..');
 
 test.beforeEach(t => {
-  t.context.hr = (lhs, rhs) => hr(lhs, rhs, { ignoreArrays: true });
+  t.context.hr = new HR({ ignoreArrays: true }).diff;
 });
 
 test('humanReadable is a function', t => {
   t.true(typeof t.context.hr === 'function');
 });
 
-test('processes an array', t => {
+test('ignores arrays', t => {
   const lhs = {
     foo: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     bar: 'hello',

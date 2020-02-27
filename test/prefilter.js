@@ -1,8 +1,8 @@
 const test = require('ava');
-const hr = require('..');
+const HR = require('..');
 
 test.beforeEach(t => {
-  t.context.hr = hr;
+  t.context.hr = config => new HR(config).diff;
 });
 
 test('humanReadable is a function', t => {
@@ -26,7 +26,7 @@ test('prefilters with an array of values', t => {
     base: [1, 2, 2, 5]
   };
 
-  t.deepEqual(t.context.hr(lhs, rhs, { prefilter: ['baz', 'foo'] }), [
+  t.deepEqual(t.context.hr({ prefilter: ['baz', 'foo'] })(lhs, rhs), [
     '"Bar", with a value of "hello" (at Obj.bar) was changed to "hello world"',
     '"Chip", with a value of "dale" (at Obj.chip) was removed',
     'Array "Baz" (at Obj.biz.baz), had a value of "4" removed at index 3',
@@ -54,7 +54,7 @@ test('prefilters with a function', t => {
     base: [1, 2, 2, 5]
   };
 
-  t.deepEqual(t.context.hr(lhs, rhs, { prefilter: (path, key) => key === 2 }), [
+  t.deepEqual(t.context.hr({ prefilter: (path, key) => key === 2 })(lhs, rhs), [
     '"Bar", with a value of "hello" (at Obj.bar) was changed to "hello world"',
     '"Baz", with a value of "12" (at Obj.baz) was changed to "10"',
     '"Chip", with a value of "dale" (at Obj.chip) was removed',
