@@ -4,15 +4,16 @@ function getDotPath() {
     return `${this.config.objectName}.${this.diff.dotpath}`;
   }
 
+  // eslint-disable-next-line unicorn/no-reduce
   const path = this.diff.path.reduce(
-    (acc, val, i) =>
-      typeof val === 'string'
+    (acc, value, i) =>
+      typeof value === 'string'
         ? typeof this.diff.path[i + 1] === 'string'
-          ? acc.concat(`${String(val)}.`)
-          : acc.concat(String(val))
+          ? acc.concat(`${String(value)}.`)
+          : acc.concat(String(value))
         : typeof this.diff.path[i + 1] === 'string'
-        ? acc.concat(`[${String(val)}].`)
-        : acc.concat(`[${String(val)}]`),
+        ? acc.concat(`[${String(value)}].`)
+        : acc.concat(`[${String(value)}]`),
     ''
   );
 

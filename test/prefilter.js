@@ -1,15 +1,15 @@
 const test = require('ava');
 const HR = require('..');
 
-test.beforeEach(t => {
-  t.context.hr = config => new HR(config).diff;
+test.beforeEach((t) => {
+  t.context.hr = (config) => new HR(config).diff;
 });
 
-test('humanReadable is a function', t => {
+test('humanReadable is a function', (t) => {
   t.true(typeof t.context.hr === 'function');
 });
 
-test('prefilters with an array of values', t => {
+test('prefilters with an array of values', (t) => {
   const lhs = {
     foo: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     bar: 'hello',
@@ -37,7 +37,7 @@ test('prefilters with an array of values', t => {
   ]);
 });
 
-test('prefilters with a function', t => {
+test('prefilters with a function', (t) => {
   const lhs = {
     foo: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     bar: 'hello',

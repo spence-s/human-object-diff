@@ -1,16 +1,16 @@
 const test = require('ava');
 const HR = require('..');
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   const sensitivePaths = ['foo', 'bar', 'biz', 'arr', 'arr2', 'arr3'];
   t.context.hr = new HR({ sensitivePaths }).diff;
 });
 
-test('humanReadable is a function', t => {
+test('humanReadable is a function', (t) => {
   t.true(typeof t.context.hr === 'function');
 });
 
-test('Uses custom templates successfully', t => {
+test('Uses custom templates successfully', (t) => {
   const lhs = {
     foo: 'bar',
     biz: 'baz',

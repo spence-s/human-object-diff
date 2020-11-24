@@ -1,7 +1,7 @@
 const test = require('ava');
 const HR = require('..');
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   const templates = {
     N: 'testing "FIELD" "NEWVALUE" DOTPATH added',
     D: 'testing "FIELD" "OLDVALUE" DOTPATH removed',
@@ -13,11 +13,11 @@ test.beforeEach(t => {
   t.context.hr = new HR({ templates }).diff;
 });
 
-test('humanReadable is a function', t => {
+test('humanReadable is a function', (t) => {
   t.true(typeof t.context.hr === 'function');
 });
 
-test('Uses custom templates successfully', t => {
+test('Uses custom templates successfully', (t) => {
   const lhs = {
     foo: 'bar',
     biz: 'baz',

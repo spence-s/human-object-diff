@@ -1,15 +1,15 @@
 const test = require('ava');
 const HR = require('..');
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   t.context.hr = new HR().diff;
 });
 
-test('humanReadable is a function', t => {
+test('humanReadable is a function', (t) => {
   t.true(typeof t.context.hr === 'function');
 });
 
-test('Describes an object new key addition', t => {
+test('Describes an object new key addition', (t) => {
   const lhs = {};
   const rhs = {
     bar: 'hello world'
@@ -20,7 +20,7 @@ test('Describes an object new key addition', t => {
   ]);
 });
 
-test('Describes an object key removal', t => {
+test('Describes an object key removal', (t) => {
   const lhs = {
     bar: 'hello world'
   };
@@ -31,7 +31,7 @@ test('Describes an object key removal', t => {
   ]);
 });
 
-test('Describes an object key edit', t => {
+test('Describes an object key edit', (t) => {
   const lhs = { foo: 'hello' };
   const rhs = {
     foo: 'hello world'
@@ -42,7 +42,7 @@ test('Describes an object key edit', t => {
   ]);
 });
 
-test('Describes an array insertion', t => {
+test('Describes an array insertion', (t) => {
   const lhs = { foo: [1, 2, 3, 4, 5, 6] };
   const rhs = {
     foo: [1, 2, 3, 8, 4, 5, 6]
@@ -53,7 +53,7 @@ test('Describes an array insertion', t => {
   ]);
 });
 
-test('Describes an array removal', t => {
+test('Describes an array removal', (t) => {
   const lhs = { foo: [1, 2, 3, 4, 5, 6] };
   const rhs = {
     foo: [1, 2, 4, 5, 6]
@@ -64,7 +64,7 @@ test('Describes an array removal', t => {
   ]);
 });
 
-test('Describes an array edit', t => {
+test('Describes an array edit', (t) => {
   const lhs = { foo: [1, 2, 3, 4, 5, 6] };
   const rhs = {
     foo: [1, 2, 8, 4, 5, 6]

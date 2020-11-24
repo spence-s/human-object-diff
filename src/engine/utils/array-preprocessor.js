@@ -7,27 +7,27 @@ function preProcessArray(diffs = [], lhs = [], rhs = []) {
 
   for (const path in groupedDiffs) {
     if (Object.prototype.hasOwnProperty.call(groupedDiffs, path)) {
-      let lhsVal = lhs;
-      let rhsVal = rhs;
+      let lhsValue = lhs;
+      let rhsValue = rhs;
 
-      for (const p of path.split(/\[|\]|\./gi).filter(Boolean)) {
-        lhsVal = lhsVal[p];
-        rhsVal = rhsVal[p];
+      for (const p of path.split(/[.[]]/gi).filter(Boolean)) {
+        lhsValue = lhsValue[p];
+        rhsValue = rhsValue[p];
       }
 
       const groupedDiff = groupedDiffs[path];
 
-      const { insertions, cutoff } = getInsertions(lhsVal, rhsVal);
+      const { insertions, cutoff } = getInsertions(lhsValue, rhsValue);
 
       const changes = insertions
         .concat(
           groupedDiff
-            .filter(diff => diff.index < cutoff && diff.kind === 'E')
-            .map(diff => ({ ...diff, dotpath: path, kind: 'AE' }))
+            .filter((diff) => diff.index < cutoff && diff.kind === 'E')
+            .map((diff) => ({ ...diff, dotpath: path, kind: 'AE' }))
         )
-        .map(diff => ({
+        .map((diff) => ({
           ...diff,
-          path: path.split(/\[|\]|\./gi).filter(Boolean),
+          path: path.split(/[.[]]/gi).filter(Boolean),
           dotpath: path
         }));
       diffStrings = diffStrings.concat(changes);
@@ -69,12 +69,12 @@ function getInsertions(lhs = [], rhs = []) {
       longer.pop();
       shorter.pop();
     } else {
-      const val = longer.pop();
+      const value = longer.pop();
       const index = longerLength - Math.abs(negIndex);
       insertions.push({
         kind,
         index,
-        val
+        val: value
       });
       absCount -= 1;
     }
@@ -82,7 +82,7 @@ function getInsertions(lhs = [], rhs = []) {
 
   return {
     insertions,
-    cutoff: Math.min(...insertions.map(ins => ins.index))
+    cutoff: Math.min(...insertions.map((ins) => ins.index))
   };
 }
 

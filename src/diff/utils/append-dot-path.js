@@ -14,14 +14,14 @@ function appendDotPath(diff) {
 }
 
 function reducer(diff) {
-  return function(acc, val, i) {
-    return typeof val === 'string'
+  return function (acc, value, i) {
+    return typeof value === 'string'
       ? typeof diff.path[i + 1] === 'string'
-        ? acc.concat(`${String(val)}.`)
-        : acc.concat(String(val))
+        ? acc.concat(`${String(value)}.`)
+        : acc.concat(String(value))
       : typeof diff.path[i + 1] === 'string'
-      ? acc.concat(`[${String(val)}].`)
-      : acc.concat(`[${String(val)}]`);
+      ? acc.concat(`[${String(value)}].`)
+      : acc.concat(`[${String(value)}]`);
   };
 }
 

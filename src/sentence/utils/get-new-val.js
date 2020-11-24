@@ -1,6 +1,6 @@
 const formatPropertyValue = require('./format-property-value');
 
-function getNewVal() {
+function getNewValue() {
   let formatted;
   if (this.diff.val)
     formatted = formatPropertyValue(this.diff.val, this.config);
@@ -10,4 +10,4 @@ function getNewVal() {
   return formatted.replace(/"/g, '');
 }
 
-module.exports = getNewVal;
+module.exports = getNewValue;

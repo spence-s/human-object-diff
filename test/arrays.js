@@ -1,15 +1,15 @@
 const test = require('ava');
 const HRDiff = require('..');
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   t.context.hr = new HRDiff().diff;
 });
 
-test('humanReadable is a function', t => {
+test('humanReadable is a function', (t) => {
   t.true(typeof t.context.hr === 'function');
 });
 
-test('processes an array', t => {
+test('processes an array', (t) => {
   const lhs = {
     foo: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     bar: 'hello',
