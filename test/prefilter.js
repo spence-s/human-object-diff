@@ -29,9 +29,8 @@ test('prefilters with an array of values', (t) => {
   t.deepEqual(t.context.hr({ prefilter: ['baz', 'foo'] })(lhs, rhs), [
     '"Bar", with a value of "hello" (at Obj.bar) was changed to "hello world"',
     '"Chip", with a value of "dale" (at Obj.chip) was removed',
-    'Array "Baz" (at Obj.biz.baz), had a value of "4" removed at index 3',
-    'Array "Hello" (at Obj.biz.baz[2].hello), had a value of "was" inserted at index 1',
-    'Array "Hello" (at Obj.biz.baz[2].hello), had a value of "then" changed to "there" at index 0',
+    'Array "Biz.baz" (at Obj.biz.baz), had a value of "4" changed to "5" at index 3',
+    'Array "Biz.baz[2].hello" (at Obj.biz.baz[2].hello), had a value of "then" changed to "there" at index 0',
     'Array "Base" (at Obj.base), had a value of "4" removed at index 3',
     'Array "Base" (at Obj.base), had a value of "3" changed to "2" at index 2'
   ]);
@@ -60,7 +59,7 @@ test('prefilters with a function', (t) => {
     '"Chip", with a value of "dale" (at Obj.chip) was removed',
     'Array "Foo" (at Obj.foo), had a value of "11" inserted at index 10',
     'Array "Foo" (at Obj.foo), had a value of "6" changed to "5" at index 5',
-    'Array "Baz" (at Obj.biz.baz), had a value of "4" removed at index 3',
+    'Array "Biz.baz" (at Obj.biz.baz), had a value of "4" changed to "5" at index 3',
     'Array "Base" (at Obj.base), had a value of "4" removed at index 3'
   ]);
 });

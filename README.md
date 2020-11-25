@@ -45,9 +45,9 @@ const lhs = { foo: 'bar' };
 const rhs = { foo: 'baz' };
 const options = {};
 
-const diff = humanDiff(lhs, rhs, options);
+const { diff } = new HumanDiff(options);
 
-console.log(humanObjectDiff.renderName());
+console.log(diff(lhs, rhs));
 // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
 ```
 
