@@ -39,7 +39,7 @@ yarn add human-object-diff
 ## Usage
 
 ```js
-const humanDiff = require('human-object-diff');
+const HumanDiff = require('human-object-diff');
 
 const lhs = { foo: 'bar' };
 const rhs = { foo: 'baz' };
@@ -106,7 +106,7 @@ The available values you can plug in to your sentences are `FIELD`, `DOTPATH`,`N
 
 ### Prefiltering
 
-There may be some paths in your object diffs that you'd like to ignore. You can do that with prefiltering. As a convenience, ou can add this option as an array of strings, which are the keys of the base path of the object.
+There may be some paths in your object diffs that you'd like to ignore. You can do that with prefiltering. As a convenience, you can add this option as an array of strings, which are the keys of the root paths of the objects.
 
 for instance
 
