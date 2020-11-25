@@ -57,13 +57,14 @@ console.log(diff(lhs, rhs));
 
 `human-object-diff` supports a variety of options to allow you to take control over the output of your object diff.
 
-| Option       | type        | Default                            | Description                                                                                     |
-| ------------ | ----------- | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
-| objectName   | String      | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
-| prefilter    | Array\|Func |                                    | see [prefiltering](#prefiltering)                                                               |
-| dateFormat   | String      | 'MM/dd/yyyy hh:mm a'               | dateFns format string see [below](#support-for-dates)                                           |
-| ignoreArrays | Bool        | false                              | If array differences aren't needed. Set to true and skip processing                             |
-| templates    | Object      | see [templates](#custom-templates) | Completely customize the output.                                                                |
+| Option         | type             | Default                            | Description                                                                                     |
+| -------------- | ---------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| objectName     | String           | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
+| prefilter      | \[String\]\|Func |                                    | see [prefiltering](#prefiltering)                                                               |
+| dateFormat     | String           | 'MM/dd/yyyy hh:mm a'               | dateFns format string see [below](#support-for-dates)                                           |
+| ignoreArrays   | Bool             | false                              | If array differences aren't needed. Set to true and skip processing                             |
+| templates      | Object           | see [templates](#custom-templates) | Completely customize the output.                                                                |
+| sensitivePaths | \[String\]       |                                    | Paths that will use the sensitive field templates if they are defined                           |
 
 ### Custom Templates
 
@@ -96,9 +97,9 @@ Where N is a new key, D is a deleted key, E is an edited key, I is an inserted a
 
 We also expose a sensitiveFields array option which will cause a path to use the S option template.
 
-You can define each sentence in templates to be whatever you'd like them to be and you can use the following codes that will be replaced by their diff values in the final output.
+You can define each sentence in the templates to be whatever you'd like. The following tokens can be used to replace their diff values in the final output.
 
-The available values you can plug in to your sentences are `FIELD`, `DOTPATH`,`NEWVALUE`,`OLDVALUE`, `INDEX`, `POSITION`. Position is just index+1. Be aware that not all sentence types will have values for each token. For instance non array changes will not have a position or an index.
+The available tokens that can plug in to your sentence templates are `FIELD`, `DOTPATH`,`NEWVALUE`,`OLDVALUE`, `INDEX`, `POSITION`. Position is just index+1. Be aware that not all sentence types will have values for each token. For instance, non-array changes will not have a position or an index.
 
 ### Support for Dates
 
