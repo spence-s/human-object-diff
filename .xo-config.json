@@ -1,0 +1,8 @@
+{
+  "prettier": true,
+  "space": true,
+  "rules": {
+    "unicorn/prefer-spread": "off",
+    "unicorn/no-array-reduce": "off"
+  }
+}

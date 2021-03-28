@@ -2,20 +2,16 @@ const deepdiff = require('deep-diff');
 const preProcessArrayDiffs = require('./utils/array-preprocessor');
 const DiffSentence = require('../sentence');
 const Diff = require('../diff');
+const getPrefilter = require('./utils/get-prefilter');
 
 function humanReadableDiff(lhs, rhs) {
   const arrayDiffs = [];
   this.sentenceDiffs = [];
   this.sentences = [];
+  this.computedPreFilter = getPrefilter(this.config);
 
-  let prefilter;
-  if (Array.isArray(this.config.prefilter))
-    prefilter = (path, key) =>
-      path.length === 0 && this.config.prefilter.includes(key);
-  else if (typeof this.config.prefilter === 'function')
-    prefilter = this.config.prefilter;
+  const differences = deepdiff(lhs, rhs, this.computedPreFilter);
 
-  const differences = deepdiff(lhs, rhs, prefilter);
   if (!differences) return [];
 
   for (let diff of differences) {

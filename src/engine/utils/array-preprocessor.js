@@ -19,18 +19,17 @@ function preProcessArray(diffs = [], lhs = [], rhs = []) {
 
       const { insertions, cutoff } = getInsertions(lhsValue, rhsValue);
 
-      const changes = insertions
-        .concat(
-          groupedDiff
-            .filter((diff) => diff.index < cutoff && diff.kind === 'E')
-            .map((diff) => ({ ...diff, dotpath: path, kind: 'AE' }))
-        )
-        .map((diff) => ({
-          ...diff,
-          path: path.split(/[.[]]/gi).filter(Boolean),
-          dotpath: path
-        }));
-      diffStrings = diffStrings.concat(changes);
+      const changes = [
+        ...insertions,
+        ...groupedDiff
+          .filter((diff) => diff.index < cutoff && diff.kind === 'E')
+          .map((diff) => ({ ...diff, dotpath: path, kind: 'AE' }))
+      ].map((diff) => ({
+        ...diff,
+        path: path.split(/[.[]]/gi).filter(Boolean),
+        dotpath: path
+      }));
+      diffStrings = [...diffStrings, ...changes];
     }
   }
 
