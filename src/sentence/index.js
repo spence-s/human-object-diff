@@ -27,7 +27,7 @@ class DiffSentence {
       'INDEX',
       'POSITION'
     ];
-    for (const token of tokens) sentence = sentence.replace(token, this[token]);
+    for (const token of tokens) sentence = sentence.replaceAll(token, this[token]);
     return sentence;
   }
 
