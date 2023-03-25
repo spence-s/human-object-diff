@@ -1,5 +1,5 @@
 const test = require('ava');
-const HRDiff = require('..');
+const HRDiff = require('../src/index.js');
 
 test.beforeEach((t) => {
   t.context.hr = new HRDiff().diff;

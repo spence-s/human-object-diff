@@ -1,5 +1,5 @@
-const diff = require('./src/engine/index.js');
-const defaults = require('./src/engine/utils/defaults.js');
+const diff = require('./engine/index.js');
+const defaults = require('./engine/utils/defaults.js');
 
 class DiffEngine {
   constructor(config = {}) {
