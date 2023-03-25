@@ -1,8 +1,8 @@
 const deepdiff = require('deep-diff');
-const preProcessArrayDiffs = require('./utils/array-preprocessor');
-const DiffSentence = require('../sentence');
-const Diff = require('../diff');
-const getPrefilter = require('./utils/get-prefilter');
+const DiffSentence = require('../sentence/index.js');
+const Diff = require('../diff/index.js');
+const preProcessArrayDiffs = require('./utils/array-preprocessor.js');
+const getPrefilter = require('./utils/get-prefilter.js');
 
 function humanReadableDiff(lhs, rhs) {
   const arrayDiffs = [];

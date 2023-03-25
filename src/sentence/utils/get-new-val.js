@@ -1,4 +1,4 @@
-const formatPropertyValue = require('./format-property-value');
+const formatPropertyValue = require('./format-property-value.js');
 
 function getNewValue() {
   let formatted;

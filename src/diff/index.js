@@ -1,6 +1,6 @@
-const isArray = require('./utils/is-array');
-const appendDotPath = require('./utils/append-dot-path');
-const isObject = require('./utils/is-object');
+const isArray = require('./utils/is-array.js');
+const appendDotPath = require('./utils/append-dot-path.js');
+const isObject = require('./utils/is-object.js');
 
 class Diff {
   constructor(diff) {
