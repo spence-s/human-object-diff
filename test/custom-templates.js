@@ -1,5 +1,5 @@
 const test = require('ava');
-const HR = require('..');
+const HR = require('../src/index.js');
 
 test.beforeEach((t) => {
   const templates = {

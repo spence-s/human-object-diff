@@ -1,4 +1,4 @@
-const humanize = require('./humanize');
+const humanize = require('./humanize.js');
 
 function getField() {
   let propertyIndex = this.diff.path.length - 1;

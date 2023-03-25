@@ -1,7 +1,7 @@
-const getNewVal = require('./utils/get-new-val');
-const getField = require('./utils/get-field');
-const getDotpath = require('./utils/get-dot-path');
-const getOldVal = require('./utils/get-old-val');
+const getNewVal = require('./utils/get-new-val.js');
+const getField = require('./utils/get-field.js');
+const getDotpath = require('./utils/get-dot-path.js');
+const getOldVal = require('./utils/get-old-val.js');
 
 class DiffSentence {
   constructor(diff, config, templates) {

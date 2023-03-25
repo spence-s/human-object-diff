@@ -3,6 +3,7 @@
   "space": true,
   "rules": {
     "unicorn/prefer-spread": "off",
-    "unicorn/no-array-reduce": "off"
+    "unicorn/no-array-reduce": "off",
+    "unicorn/prefer-module": "off"
   }
 }
