@@ -194,3 +194,7 @@ diffEngine.sentences; // -> same as the output of the last diff
 
 [npm]: https://www.npmjs.com/
 [yarn]: https://yarnpkg.com/
+
+
+Real world example
+I selected open source package and decided to add dual support for it.

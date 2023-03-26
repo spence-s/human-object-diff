@@ -1,10 +1,9 @@
 {
-  "prettier": true,
-  "space": true,
+  "extends": [
+    "xo",
+    "xo-typescript"
+  ],
   "rules": {
-    "unicorn/prefer-spread": "off",
-    "unicorn/no-array-reduce": "off",
-    "import/extensions": "off",
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-confusing-void-expression": "off",
     "@typescript-eslint/object-curly-spacing": "off",
