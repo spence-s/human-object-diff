@@ -15,10 +15,10 @@
 - [Install](#install)
 - [Usage](#usage)
 - [Configuring](#configuring)
-  - [Options](#options)
-  - [Custom Templates](#custom-templates)
-  - [Support for Dates](#support-for-dates)
-  - [Prefiltering](#prefiltering)
+    - [Options](#options)
+    - [Custom Templates](#custom-templates)
+    - [Support for Dates](#support-for-dates)
+    - [Prefiltering](#prefiltering)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -38,33 +38,52 @@ yarn add human-object-diff
 
 ## Usage
 
-```js
-const HumanDiff = require('human-object-diff');
+Common JS
 
-const lhs = { foo: 'bar' };
-const rhs = { foo: 'baz' };
+```typescript
+const {DiffEngine: HumanDiff} = require('human-object-diff');
+
+const lhs = {foo: 'bar'};
+const rhs = {foo: 'baz'};
 const options = {};
 
-const { diff } = new HumanDiff(options);
+const {diff} = new HumanDiff(options);
 
 console.log(diff(lhs, rhs));
 // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
 ```
 
+ES Module
+
 ## Configuring
+
+```typescript
+(async () => {
+    const {DiffEngine: HumanDiff} = await import('human-object-diff');
+
+    const lhs = {foo: 'bar'};
+    const rhs = {foo: 'baz'};
+    const options = {};
+
+    const {diff} = new HumanDiff(options);
+
+    console.log(diff(lhs, rhs));
+    // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
+})()
+```
 
 ### Options
 
 `human-object-diff` supports a variety of options to allow you to take control over the output of your object diff.
 
-| Option         | type             | Default                            | Description                                                                                     |
-| -------------- | ---------------- | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
-| objectName     | String           | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
-| prefilter      | \[String\]\|Func |                                    | see [prefiltering](#prefiltering)                                                               |
-| dateFormat     | String           | 'MM/dd/yyyy hh:mm a'               | dateFns format string see [below](#support-for-dates)                                           |
-| ignoreArrays   | Bool             | false                              | If array differences aren't needed. Set to true and skip processing                             |
-| templates      | Object           | see [templates](#custom-templates) | Completely customize the output.                                                                |
-| sensitivePaths | \[String\]       |                                    | Paths that will use the sensitive field templates if they are defined                           |
+| Option         | type        | Default                            | Description                                                                                     |
+|----------------|-------------|------------------------------------|-------------------------------------------------------------------------------------------------|
+| objectName     | String      | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
+| prefilter      | \[String\]\ | Func                               |                                                                                                 | see [prefiltering](#prefiltering)                                                               |
+| dateFormat     | String      | 'MM/dd/yyyy hh:mm a'               | dateFns format string see [below](#support-for-dates)                                           |
+| ignoreArrays   | Bool        | false                              | If array differences aren't needed. Set to true and skip processing                             |
+| templates      | Object      | see [templates](#custom-templates) | Completely customize the output.                                                                |
+| sensitivePaths | \[String\]  |                                    | Paths that will use the sensitive field templates if they are defined                           |
 
 ### Custom Templates
 
@@ -93,43 +112,55 @@ const templates = {
 };
 ```
 
-Where N is a new key, D is a deleted key, E is an edited key, I is an inserted array value, R is a removed array value, and AE is an edited array property.
+Where N is a new key, D is a deleted key, E is an edited key, I is an inserted array value, R is a removed array value,
+and AE is an edited array property.
 
 We also expose a sensitiveFields array option which will cause a path to use the S option template.
 
-You can define each sentence in the templates to be whatever you'd like. The following tokens can be used to replace their diff values in the final output.
+You can define each sentence in the templates to be whatever you'd like. The following tokens can be used to replace
+their diff values in the final output.
 
-The available tokens that can plug in to your sentence templates are `FIELD`, `DOTPATH`,`NEWVALUE`,`OLDVALUE`, `INDEX`, `POSITION`. Position is just index+1. Be aware that not all sentence types will have values for each token. For instance, non-array changes will not have a position or an index.
+The available tokens that can plug in to your sentence templates
+are `FIELD`, `DOTPATH`,`NEWVALUE`,`OLDVALUE`, `INDEX`, `POSITION`. Position is just index+1. Be aware that not all
+sentence types will have values for each token. For instance, non-array changes will not have a position or an index.
 
 ### Support for Dates
 
-`human-object-diff` uses `date-fns` format function under the hood to show human readable date differences. We also supply a `dateFormat` option where you can supply your own date formatting string. Please note, that date-fns format strings are different from moment.js format strings. Please refer to the documentation [here](https://date-fns.org/v2.8.1/docs/format) and [here](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)
+`human-object-diff` uses `date-fns` format function under the hood to show human readable date differences. We also
+supply a `dateFormat` option where you can supply your own date formatting string. Please note, that date-fns format
+strings are different from moment.js format strings. Please refer to the
+documentation [here](https://date-fns.org/v2.8.1/docs/format)
+and [here](https://github.com/date-fns/date-fns/blob/master/docs/unicodeTokens.md)
 
 ### Prefiltering
 
-There may be some paths in your object diffs that you'd like to ignore. You can do that with prefiltering. As a convenience, you can add this option as an array of strings, which are the keys of the root paths of the objects.
+There may be some paths in your object diffs that you'd like to ignore. You can do that with prefiltering. As a
+convenience, you can add this option as an array of strings, which are the keys of the root paths of the objects.
 
 for instance
 
 ```js
-const lhs = { foo: 'bar', biz: { foo: 'baz' } };
-const rhs = { foo: 'bar', biz: { foo: 'buzz' } };
+const lhs = {foo: 'bar', biz: {foo: 'baz'}};
+const rhs = {foo: 'bar', biz: {foo: 'buzz'}};
 
-const { diff } = new HumanDiff({ prefilter: ['foo'] });
+const {diff} = new HumanDiff({prefilter: ['foo']});
 
 diff(lhs, rhs);
 ```
 
 You would still see the diffs for `biz.foo` but you would ignore the diff for `foo`.
 
-You can also pass a function for this option which will be directly passed to the [underlying diff library](https://www.npmjs.com/package/deep-diff).
+You can also pass a function for this option which will be directly passed to
+the [underlying diff library](https://www.npmjs.com/package/deep-diff).
 
-The prefilter function takes a signature of `function(path, key)`. Here path is an array that represents the path leading up to the object property. The key is the key, or what would be the final element of the path. The function returns true for any paths you would want to ignore.
+The prefilter function takes a signature of `function(path, key)`. Here path is an array that represents the path
+leading up to the object property. The key is the key, or what would be the final element of the path. The function
+returns true for any paths you would want to ignore.
 
 For instance, in the object below:
 
 ```js
-const obj = { foo: { bar: [1, 2, { baz: 'buzz' }] } };
+const obj = {foo: {bar: [1, 2, {baz: 'buzz'}]}};
 ```
 
 The path and key for `foo` would be path \[] and key 'foo'.
@@ -146,16 +177,24 @@ const prefilter = (path, key) => path[0] === 'foo' && key === 'bar';
 
 ## A Note On Arrays
 
-> \*\*There are known bug related to arrays of objects. We plan to release different array processing algorithms in the future that can handle more complex objects. As of the latest version it is reccomended to only diff between flat arrays of strings and numbers. Otherwise there isn't guarantee of accuracy or if diffs won't be duplicated in some ways.
+> \*\*There are known bug related to arrays of objects. We plan to release different array processing algorithms in the
+> future that can handle more complex objects. As of the latest version it is reccomended to only diff between flat
+> arrays
+> of strings and numbers. Otherwise there isn't guarantee of accuracy or if diffs won't be duplicated in some ways.
 
-`human-object-diff` parses arrays in an opinionated way. It does it's best to resolve Arrays into groups of insertions and removals. Typical diff libraries look at arrays on an element by element basis and emit a difference for every changes element. While this is benefical for many programatic tasks, humans typically don't look at arrays in the same way. `human-object-diff` attempts to reduce array changes to a number of insertions, removals, and edits. An example can better describe the difference.
+`human-object-diff` parses arrays in an opinionated way. It does it's best to resolve Arrays into groups of insertions
+and removals. Typical diff libraries look at arrays on an element by element basis and emit a difference for every
+changes element. While this is benefical for many programatic tasks, humans typically don't look at arrays in the same
+way. `human-object-diff` attempts to reduce array changes to a number of insertions, removals, and edits. An example can
+better describe the difference.
 
 ```js
 const lhs = [1, 2, 3, 4];
 const rhs = [0, 1, 2, 3, 4];
 ```
 
-Consider the above arrays and their differences. A typical array diff would behave like this and output something like the following.
+Consider the above arrays and their differences. A typical array diff would behave like this and output something like
+the following.
 
 1. A change at index 0 from 1 to 0
 2. A change at index 1 from 2 to 1
@@ -171,7 +210,8 @@ This is much more understandable to a human brain. We've simply inserted a numbe
 
 ## Diff Memory
 
-The diff engine object created when `new HumanDiff()` is invoked contains a `sentences` property which you can use to recall the last diff that was computed.
+The diff engine object created when `new HumanDiff()` is invoked contains a `sentences` property which you can use to
+recall the last diff that was computed.
 
 ```js
 const diffEngine = new HumanDiff();
@@ -180,10 +220,39 @@ diffEngine.diff(lhs, rhs);
 diffEngine.sentences; // -> same as the output of the last diff
 ```
 
+## Migration 2.0.2 -> 3.0.3
+
+Due to [ESM](https://nodejs.org/api/packages.html#writing-dual-packages-while-avoiding-or-minimizing-hazards) release
+you have to replace default import by named import.
+
+So change
+
+```typescript
+const HumanDiff = require('human-object-diff');
+```
+
+to named version of require
+
+```typescript
+const {DiffEngine: HumanDiff} = require('human-object-diff');
+```
+
+or use import
+
+```typescript
+import { DiffEngine as HumanDiff } from 'human-object-diff';
+```
+
+or even dynamic import
+
+```typescript
+const {DiffEngine: HumanDiff} = await import('human-object-diff');
+```
+
 ## Contributors
 
 | Name               | Website                    |
-| ------------------ | -------------------------- |
+|--------------------|----------------------------|
 | **Spencer Snyder** | <http://spencersnyder.io/> |
 
 ## License
@@ -193,6 +262,7 @@ diffEngine.sentences; // -> same as the output of the last diff
 ##
 
 [npm]: https://www.npmjs.com/
+
 [yarn]: https://yarnpkg.com/
 
 

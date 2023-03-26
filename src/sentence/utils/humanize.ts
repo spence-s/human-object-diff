@@ -1,10 +1,10 @@
 import humanizeStr from 'humanize-string';
 import titleize from 'titleize';
-import { type DiffConfig } from '../../index';
+import { type DiffConfig } from '../../index.js';
 
 export default function humanize(
-  prop: string,
-  config: Pick<DiffConfig, 'dontHumanizePropertyNames'>
+    prop: string,
+    config: Pick<DiffConfig, 'dontHumanizePropertyNames'>
 ) {
-  return config.dontHumanizePropertyNames ? prop : titleize(humanizeStr(prop));
+    return config.dontHumanizePropertyNames ? prop : titleize(humanizeStr(prop));
 }
