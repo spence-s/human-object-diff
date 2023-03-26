@@ -15,10 +15,10 @@
 - [Install](#install)
 - [Usage](#usage)
 - [Configuring](#configuring)
-    - [Options](#options)
-    - [Custom Templates](#custom-templates)
-    - [Support for Dates](#support-for-dates)
-    - [Prefiltering](#prefiltering)
+  - [Options](#options)
+  - [Custom Templates](#custom-templates)
+  - [Support for Dates](#support-for-dates)
+  - [Prefiltering](#prefiltering)
 - [Contributors](#contributors)
 - [License](#license)
 
@@ -41,13 +41,13 @@ yarn add human-object-diff
 Common JS
 
 ```typescript
-const {DiffEngine: HumanDiff} = require('human-object-diff');
+const { DiffEngine: HumanDiff } = require('human-object-diff');
 
-const lhs = {foo: 'bar'};
-const rhs = {foo: 'baz'};
+const lhs = { foo: 'bar' };
+const rhs = { foo: 'baz' };
 const options = {};
 
-const {diff} = new HumanDiff(options);
+const { diff } = new HumanDiff(options);
 
 console.log(diff(lhs, rhs));
 // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
@@ -59,31 +59,31 @@ ES Module
 
 ```typescript
 (async () => {
-    const {DiffEngine: HumanDiff} = await import('human-object-diff');
+  const { DiffEngine: HumanDiff } = await import('human-object-diff');
 
-    const lhs = {foo: 'bar'};
-    const rhs = {foo: 'baz'};
-    const options = {};
+  const lhs = { foo: 'bar' };
+  const rhs = { foo: 'baz' };
+  const options = {};
 
-    const {diff} = new HumanDiff(options);
+  const { diff } = new HumanDiff(options);
 
-    console.log(diff(lhs, rhs));
-    // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
-})()
+  console.log(diff(lhs, rhs));
+  // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
+})();
 ```
 
 ### Options
 
 `human-object-diff` supports a variety of options to allow you to take control over the output of your object diff.
 
-| Option         | type        | Default                            | Description                                                                                     |
-|----------------|-------------|------------------------------------|-------------------------------------------------------------------------------------------------|
-| objectName     | String      | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
-| prefilter      | \[String\]\ | Func                               |                                                                                                 | see [prefiltering](#prefiltering)                                                               |
-| dateFormat     | String      | 'MM/dd/yyyy hh:mm a'               | dateFns format string see [below](#support-for-dates)                                           |
-| ignoreArrays   | Bool        | false                              | If array differences aren't needed. Set to true and skip processing                             |
-| templates      | Object      | see [templates](#custom-templates) | Completely customize the output.                                                                |
-| sensitivePaths | \[String\]  |                                    | Paths that will use the sensitive field templates if they are defined                           |
+| Option         | type         | Default                            | Description                                                                                     |
+| -------------- | ------------ | ---------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------- |
+| objectName     | String       | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
+| prefilter      | \[String\]\  | Func                               |                                                                                                 | see [prefiltering](#prefiltering) |
+| dateFormat     | String       | 'MM/dd/yyyy hh:mm a'               | dateFns format string see [below](#support-for-dates)                                           |
+| ignoreArrays   | Bool         | false                              | If array differences aren't needed. Set to true and skip processing                             |
+| templates      | Object       | see [templates](#custom-templates) | Completely customize the output.                                                                |
+| sensitivePaths | \[String\]   |                                    | Paths that will use the sensitive field templates if they are defined                           |
 
 ### Custom Templates
 
@@ -95,14 +95,10 @@ The default template looks like the following:
 const templates = {
   N: '"FIELD", with a value of "NEWVALUE" (at DOTPATH) was added',
   D: '"FIELD", with a value of "OLDVALUE" (at DOTPATH) was removed',
-  E:
-    '"FIELD", with a value of "OLDVALUE" (at DOTPATH) was changed to "NEWVALUE"',
-  I:
-    'Array "FIELD" (at DOTPATH), had a value of "NEWVALUE" inserted at index INDEX',
-  R:
-    'Array "FIELD" (at DOTPATH), had a value of "OLDVALUE" removed at index INDEX',
-  AE:
-    'Array "FIELD" (at DOTPATH), had a value of "OLDVALUE" changed to "NEWVALUE" at index INDEX',
+  E: '"FIELD", with a value of "OLDVALUE" (at DOTPATH) was changed to "NEWVALUE"',
+  I: 'Array "FIELD" (at DOTPATH), had a value of "NEWVALUE" inserted at index INDEX',
+  R: 'Array "FIELD" (at DOTPATH), had a value of "OLDVALUE" removed at index INDEX',
+  AE: 'Array "FIELD" (at DOTPATH), had a value of "OLDVALUE" changed to "NEWVALUE" at index INDEX',
   NS: '"FIELD" (at DOTPATH) was added',
   DS: '"FIELD" (at DOTPATH) was removed',
   ES: '"FIELD" (at DOTPATH) was changed',
@@ -140,10 +136,10 @@ convenience, you can add this option as an array of strings, which are the keys 
 for instance
 
 ```js
-const lhs = {foo: 'bar', biz: {foo: 'baz'}};
-const rhs = {foo: 'bar', biz: {foo: 'buzz'}};
+const lhs = { foo: 'bar', biz: { foo: 'baz' } };
+const rhs = { foo: 'bar', biz: { foo: 'buzz' } };
 
-const {diff} = new HumanDiff({prefilter: ['foo']});
+const { diff } = new HumanDiff({ prefilter: ['foo'] });
 
 diff(lhs, rhs);
 ```
@@ -160,7 +156,7 @@ returns true for any paths you would want to ignore.
 For instance, in the object below:
 
 ```js
-const obj = {foo: {bar: [1, 2, {baz: 'buzz'}]}};
+const obj = { foo: { bar: [1, 2, { baz: 'buzz' }] } };
 ```
 
 The path and key for `foo` would be path \[] and key 'foo'.
@@ -234,7 +230,7 @@ const HumanDiff = require('human-object-diff');
 to named version of require
 
 ```typescript
-const {DiffEngine: HumanDiff} = require('human-object-diff');
+const { DiffEngine: HumanDiff } = require('human-object-diff');
 ```
 
 or use import
@@ -246,13 +242,13 @@ import { DiffEngine as HumanDiff } from 'human-object-diff';
 or even dynamic import
 
 ```typescript
-const {DiffEngine: HumanDiff} = await import('human-object-diff');
+const { DiffEngine: HumanDiff } = await import('human-object-diff');
 ```
 
 ## Contributors
 
 | Name               | Website                    |
-|--------------------|----------------------------|
+| ------------------ | -------------------------- |
 | **Spencer Snyder** | <http://spencersnyder.io/> |
 
 ## License
@@ -262,9 +258,7 @@ const {DiffEngine: HumanDiff} = await import('human-object-diff');
 ##
 
 [npm]: https://www.npmjs.com/
-
 [yarn]: https://yarnpkg.com/
-
 
 Real world example
 I selected open source package and decided to add dual support for it.

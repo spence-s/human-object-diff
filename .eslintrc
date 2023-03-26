@@ -1,8 +1,6 @@
 {
-  "extends": [
-    "xo",
-    "xo-typescript"
-  ],
+  "extends": ["xo", "xo-typescript", "prettier"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-confusing-void-expression": "off",

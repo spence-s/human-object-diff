@@ -88,7 +88,7 @@
   "scripts": {
     "ava": "cross-env NODE_ENV=test ava",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "xo && npx eslint --ext .ts src --fix",
+    "lint": "prettier --write . --ignore-path .gitignore && DEBUG=eslint:cli-engine xo && DEBUG=eslint:cli-engine npx eslint --ext .ts src --fix",
     "nyc": "cross-env NODE_ENV=test nyc ava",
     "test": "jest",
     "test-coverage": "yarn run lint && yarn run nyc",

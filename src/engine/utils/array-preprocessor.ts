@@ -51,7 +51,7 @@ export default function preProcessArray(
       const changes = [
         ...insertions,
         ...groupedDiff
-          .filter(diff => Number(diff.index) < cutoff && diff.kind === 'E')
+          .filter((diff) => Number(diff.index) < cutoff && diff.kind === 'E')
           .map(
             (diff: Diff): Change => ({
               ...diff,
@@ -60,7 +60,7 @@ export default function preProcessArray(
               path: path.split(/[.[]]/gi).filter(Boolean)
             })
           )
-      ].map(diff => ({
+      ].map((diff) => ({
         ...diff,
         path: path.split(/[.[]]/gi).filter(Boolean),
         dotPath: path
@@ -139,6 +139,6 @@ function getInsertions(
 
   return {
     insertions,
-    cutoff: Math.min(...insertions.map(ins => ins.index))
+    cutoff: Math.min(...insertions.map((ins) => ins.index))
   };
 }

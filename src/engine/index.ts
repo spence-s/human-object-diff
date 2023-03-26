@@ -6,51 +6,51 @@ import preProcessArrayDiffs from './utils/array-preprocessor';
 import getPrefilter from './utils/get-prefilter';
 
 export function humanReadableDiffGenerator(
-    context: DiffEngineContext
+  context: DiffEngineContext
 ): (lhs: unknown, rhs: unknown) => string[] {
-    return (lhs: unknown, rhs: unknown): string[] => {
-        const arrayDiffs = [];
-        const sentences = [];
-        const computedPreFilter = getPrefilter(context.config);
+  return (lhs: unknown, rhs: unknown): string[] => {
+    const arrayDiffs = [];
+    const sentences = [];
+    const computedPreFilter = getPrefilter(context.config);
 
-        const differences = deepDiff(lhs, rhs, computedPreFilter);
+    const differences = deepDiff(lhs, rhs, computedPreFilter);
 
-        if (!differences) {
-            return [];
-        }
+    if (!differences) {
+      return [];
+    }
 
-        for (const singleDeepDiff of differences) {
-            const diff = new Diff(singleDeepDiff);
+    for (const singleDeepDiff of differences) {
+      const diff = new Diff(singleDeepDiff);
 
-            if (diff.isArray) {
-                if (!context.config.ignoreArrays) {
-                    arrayDiffs.push(diff);
-                }
-
-                continue;
-            }
-
-            const sentenceDiff = new DiffSentence(
-                diff,
-                context.config,
-                context.templates
-            );
-            context.sentenceDiffs.push(sentenceDiff);
-            sentences.push(sentenceDiff.format());
-        }
-
+      if (diff.isArray) {
         if (!context.config.ignoreArrays) {
-            for (const diff of preProcessArrayDiffs(arrayDiffs, lhs, rhs)) {
-                const sentenceDiff = new DiffSentence(
-                    diff,
-                    context.config,
-                    context.templates
-                );
-                context.sentenceDiffs.push(sentenceDiff);
-                sentences.push(sentenceDiff.format());
-            }
+          arrayDiffs.push(diff);
         }
 
-        return sentences;
-    };
+        continue;
+      }
+
+      const sentenceDiff = new DiffSentence(
+        diff,
+        context.config,
+        context.templates
+      );
+      context.sentenceDiffs.push(sentenceDiff);
+      sentences.push(sentenceDiff.format());
+    }
+
+    if (!context.config.ignoreArrays) {
+      for (const diff of preProcessArrayDiffs(arrayDiffs, lhs, rhs)) {
+        const sentenceDiff = new DiffSentence(
+          diff,
+          context.config,
+          context.templates
+        );
+        context.sentenceDiffs.push(sentenceDiff);
+        sentences.push(sentenceDiff.format());
+      }
+    }
+
+    return sentences;
+  };
 }
