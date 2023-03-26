@@ -47,7 +47,8 @@
     "xo": "^0.53.1"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=14",
+    "npm": ">=8"
   },
   "homepage": "https://github.com/Spence-S/human-object-diff",
   "husky": {
