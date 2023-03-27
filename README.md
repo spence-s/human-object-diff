@@ -41,15 +41,15 @@ yarn add human-object-diff
 Common JS
 
 ```typescript
-const HumanDiff = require('human-object-diff');
+const HumanDiff = require('human-object-diff')
 
-const lhs = { foo: 'bar' };
-const rhs = { foo: 'baz' };
-const options = {};
+const lhs = { foo: 'bar' }
+const rhs = { foo: 'baz' }
+const options = {}
 
-const { diff } = new HumanDiff(options);
+const { diff } = new HumanDiff(options)
 
-console.log(diff(lhs, rhs));
+console.log(diff(lhs, rhs))
 // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
 ```
 
@@ -85,8 +85,8 @@ const templates = {
   ES: '"FIELD" (at DOTPATH) was changed',
   IS: 'Array "FIELD" (at DOTPATH), had a value inserted at index INDEX',
   RS: 'Array "FIELD" (at DOTPATH), had a value removed at index INDEX',
-  AES: 'Array "FIELD" (at DOTPATH), had a value changed at index INDEX'
-};
+  AES: 'Array "FIELD" (at DOTPATH), had a value changed at index INDEX',
+}
 ```
 
 Where N is a new key, D is a deleted key, E is an edited key, I is an inserted array value, R is a removed array value,
@@ -117,12 +117,12 @@ convenience, you can add this option as an array of strings, which are the keys 
 for instance
 
 ```js
-const lhs = { foo: 'bar', biz: { foo: 'baz' } };
-const rhs = { foo: 'bar', biz: { foo: 'buzz' } };
+const lhs = { foo: 'bar', biz: { foo: 'baz' } }
+const rhs = { foo: 'bar', biz: { foo: 'buzz' } }
 
-const { diff } = new HumanDiff({ prefilter: ['foo'] });
+const { diff } = new HumanDiff({ prefilter: ['foo'] })
 
-diff(lhs, rhs);
+diff(lhs, rhs)
 ```
 
 You would still see the diffs for `biz.foo` but you would ignore the diff for `foo`.
@@ -137,7 +137,7 @@ returns true for any paths you would want to ignore.
 For instance, in the object below:
 
 ```js
-const obj = { foo: { bar: [1, 2, { baz: 'buzz' }] } };
+const obj = { foo: { bar: [1, 2, { baz: 'buzz' }] } }
 ```
 
 The path and key for `foo` would be path \[] and key 'foo'.
@@ -149,7 +149,7 @@ for `foo.bar[2].baz` it would be path: \['foo', 'bar', 2] and key 'baz'
 To ignore changes in `foo.bar` you could pass a functions like
 
 ```js
-const prefilter = (path, key) => path[0] === 'foo' && key === 'bar';
+const prefilter = (path, key) => path[0] === 'foo' && key === 'bar'
 ```
 
 ## A Note On Arrays
@@ -166,8 +166,8 @@ way. `human-object-diff` attempts to reduce array changes to a number of inserti
 better describe the difference.
 
 ```js
-const lhs = [1, 2, 3, 4];
-const rhs = [0, 1, 2, 3, 4];
+const lhs = [1, 2, 3, 4]
+const rhs = [0, 1, 2, 3, 4]
 ```
 
 Consider the above arrays and their differences. A typical array diff would behave like this and output something like
@@ -191,21 +191,21 @@ The diff engine object created when `new HumanDiff()` is invoked contains a `sen
 recall the last diff that was computed.
 
 ```js
-const diffEngine = new HumanDiff();
-diffEngine.diff(lhs, rhs);
+const diffEngine = new HumanDiff()
+diffEngine.diff(lhs, rhs)
 
-diffEngine.sentences; // -> same as the output of the last diff
+diffEngine.sentences // -> same as the output of the last diff
 ```
 
 ## Contributors
 
-| Name               | Website                    |
-| ------------------ | -------------------------- |
-| **Spencer Snyder** | <http://spencersnyder.io/> |
+| Name               | Website                     |
+| ------------------ | --------------------------- |
+| **Spencer Snyder** | <https://spencersnyder.io/> |
 
 ## License
 
-[MIT](LICENSE) © [Spencer Snyder](http://spencersnyder.io/)
+[MIT](LICENSE) © [Spencer Snyder](https://spencersnyder.io/)
 
 ##
 

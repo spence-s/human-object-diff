@@ -1,6 +1,6 @@
 export default {
   transform: {
-    '^.+\\.tsx?$': 'esbuild-jest'
+    '^.+\\.tsx?$': 'esbuild-jest',
   },
-  testEnvironment: 'node'
-};
+  testEnvironment: 'node',
+}

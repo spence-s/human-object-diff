@@ -11,15 +11,15 @@ describe('sensitive-paths', () => {
       biz: 'baz',
       arr: [1, 2, 3],
       arr2: [1, 2, 3, 4],
-      arr3: [1, 2, 3, 4]
-    };
+      arr3: [1, 2, 3, 4],
+    }
     const rhs = {
       bar: 'foo',
       biz: 'buz',
       arr: [1, 2, 5, 3],
       arr2: [1, 2, 4],
-      arr3: [1, 2, 4, 4]
-    };
+      arr3: [1, 2, 4, 4],
+    }
 
     expect(hr(lhs, rhs)).toEqual([
       '"Foo" (at Obj.foo) was removed',
