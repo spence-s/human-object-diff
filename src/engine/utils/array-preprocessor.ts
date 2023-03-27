@@ -22,7 +22,7 @@ export type Change =
     };
 
 export function splitPath(path: string): string[] {
-  return path.split(/\.|\[|\]/gi).filter(Boolean);
+  return path.split(/[.[\]]/gi).filter(Boolean);
 }
 
 export function preProcessArrayDiffs(

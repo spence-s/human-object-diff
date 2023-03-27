@@ -1,4 +1,4 @@
-import { DiffEngine } from '../src';
+import DiffEngine from '../src/index';
 import { preProcessArrayDiffs } from '../src/engine/utils/array-preprocessor';
 import Diff from '../src/diff';
 
@@ -28,19 +28,20 @@ describe('empty array', () => {
   });
 
   it('preProcessArrayDiffs without nesting', () => {
-    const df = preProcessArrayDiffs(
-      [
-        new Diff({
-          kind: 'A',
-          index: 0,
-          item: { kind: 'N', rhs: 1 },
-          path: ['flags']
-        })
-      ],
-      lhs,
-      rhs
-    );
-    expect(df).toEqual([
+    expect(
+      preProcessArrayDiffs(
+        [
+          new Diff({
+            kind: 'A',
+            index: 0,
+            item: { kind: 'N', rhs: 1 },
+            path: ['flags']
+          })
+        ],
+        lhs,
+        rhs
+      )
+    ).toEqual([
       {
         kind: 'I',
         index: 0,
@@ -52,19 +53,20 @@ describe('empty array', () => {
   });
 
   it('preProcessArrayDiffs with nesting', () => {
-    const df = preProcessArrayDiffs(
-      [
-        new Diff({
-          kind: 'A',
-          index: 0,
-          item: { kind: 'N', rhs: 1 },
-          path: ['nested', 'flags']
-        })
-      ],
-      { nested: lhs },
-      { nested: rhs }
-    );
-    expect(df).toEqual([
+    expect(
+      preProcessArrayDiffs(
+        [
+          new Diff({
+            kind: 'A',
+            index: 0,
+            item: { kind: 'N', rhs: 1 },
+            path: ['nested', 'flags']
+          })
+        ],
+        { nested: lhs },
+        { nested: rhs }
+      )
+    ).toEqual([
       {
         kind: 'I',
         index: 0,
