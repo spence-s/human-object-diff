@@ -13,6 +13,10 @@ export default function formatPropertyValue(
     return String(value);
   }
 
+  if (typeof value === 'bigint') {
+    return `${String(value)}n`;
+  }
+
   if (value instanceof Date && config.dateFormat) {
     return `${format(value, config.dateFormat)}`;
   }
