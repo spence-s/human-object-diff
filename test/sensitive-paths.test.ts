@@ -1,4 +1,4 @@
-import * as HR from '../src/index'
+import HR from '../src/index'
 import { isPathMathToPattern } from '../src/sentence'
 
 describe('sensitive-paths', () => {
