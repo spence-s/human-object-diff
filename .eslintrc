@@ -1,13 +1,6 @@
 {
-  "extends": [
-    "xo",
-    "xo-typescript",
-    "prettier",
-    "plugin:unicorn/recommended"
-  ],
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "extends": ["xo", "xo-typescript", "plugin:unicorn/recommended", "prettier"],
+  "plugins": ["@typescript-eslint"],
   "parserOptions": {
     "project": "./tsconfig.lint.json"
   },
@@ -22,6 +15,7 @@
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "unicorn/prefer-module": "off",
-    "unicorn/prevent-abbreviations": "off"
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/prefer-spread": "off"
   }
 }

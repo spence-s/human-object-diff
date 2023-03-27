@@ -31,7 +31,7 @@
     "build": "npm run clean && tsc --project tsconfig.json",
     "clean": "rm -rf dist",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "prettier --write . --ignore-path .gitignore && DEBUG=eslint:cli-engine xo && DEBUG=eslint:cli-engine npx eslint --ext .ts src --fix",
+    "lint": "eslint --ext .ts src --fix",
     "prepare": "husky install",
     "test": "jest"
   },
