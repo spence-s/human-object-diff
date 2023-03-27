@@ -83,7 +83,7 @@ export default class DiffSentence {
     config: DiffConfigWithoutTemplates,
     diff: Change | Diff
   ): keyof DiffContext['templates'] {
-    if (config.sensitivePaths.includes(diff.dotPath)) {
+    if (isPathMathToPattern(diff.dotPath, config.sensitivePaths)) {
       if (diff.kind === 'A') {
         throw new Error('Diff kind AS is not handled');
       }
@@ -108,4 +108,19 @@ export default class DiffSentence {
 
     return diff.kind;
   }
+}
+
+/**
+ * Both direct matching and jq convention with [] as any array index
+ */
+export function isPathMathToPattern(path: string, patterns: string[]): boolean {
+  return patterns.some((pattern) => {
+    // Replace '[]' with a regex pattern that matches any array index
+    const regexPattern = pattern
+      .replace(/\[]/g, '\\[\\d+\\]')
+      .replace(/\[(\d+)]/g, '\\[$1\\]');
+
+    const regex = new RegExp(`^${regexPattern}$`);
+    return regex.test(path);
+  });
 }
