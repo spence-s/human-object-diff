@@ -5,3 +5,10 @@ node_modules
 coverage
 .nyc_output
 dist
+.vscode
+
+Thumbs.db
+tmp/
+temp/
+*.lcov
+.env

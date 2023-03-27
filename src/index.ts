@@ -41,7 +41,6 @@ class DiffEngine {
 
 // CommonJS export
 module.exports = DiffEngine;
-module.exports.default = DiffEngine;
 
 // ES module export
 export default DiffEngine;
