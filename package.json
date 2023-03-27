@@ -23,15 +23,17 @@
     "Spencer Snyder <sasnyde2@gmail.com> (https://spencersnyder.io/)"
   ],
   "main": "./dist/index.js",
-  "types": "./src",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist/**/*",
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
     "build": "npm run clean && tsc --project tsconfig.json",
     "clean": "rm -rf dist",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
-    "lint": "prettier . --write && eslint --ext .ts src --fix",
+    "lint": "prettier . --write && eslint '**/*.{js,ts}' --fix",
     "prepare": "husky install",
     "test": "jest"
   },
@@ -74,6 +76,7 @@
     "husky": "^8.0.3",
     "jest": "^29.5.0",
     "lint-staged": "^13.2.0",
+    "np": "^7.6.4",
     "npm-package-json-lint": "^6.4.0",
     "npm-package-json-lint-config-default": "^5.0.0",
     "nyc": "^15.1.0",

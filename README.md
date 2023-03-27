@@ -199,8 +199,8 @@ diffEngine.sentences // -> same as the output of the last diff
 
 ## Contributors
 
-| Name               | Website                    |
-| ------------------ | -------------------------- |
+| Name               | Website                     |
+| ------------------ | --------------------------- |
 | **Spencer Snyder** | <https://spencersnyder.io/> |
 
 ## License
