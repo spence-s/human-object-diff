@@ -1,5 +1,5 @@
-import { type DiffContext } from '../index';
-import formatPropertyValue from './format-property-value';
+import { type DiffContext } from '../index'
+import formatPropertyValue from './format-property-value'
 
 export function isDisplayable(value: unknown): boolean {
   return (

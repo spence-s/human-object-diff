@@ -1,6 +1,9 @@
 {
-  "extends": ["xo", "xo-typescript", "prettier"],
-  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": ["xo", "xo-typescript", "plugin:unicorn/recommended", "prettier"],
+  "plugins": ["@typescript-eslint"],
+  "parserOptions": {
+    "project": "./tsconfig.lint.json"
+  },
   "rules": {
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/no-confusing-void-expression": "off",
@@ -11,6 +14,8 @@
     "@typescript-eslint/comma-dangle": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-unsafe-call": "off",
-    "unicorn/prefer-module": "off"
+    "unicorn/prefer-module": "off",
+    "unicorn/prevent-abbreviations": "off",
+    "unicorn/prefer-spread": "off"
   }
 }

@@ -1,16 +1,13 @@
-import format from 'date-fns/format';
-import { type DiffConfigWithoutTemplates } from '../../types';
+import format from 'date-fns/format'
+import { type DiffConfigWithoutTemplates } from '../../types'
 
-export default function formatPropertyValue(
-  value: unknown,
-  config: Pick<DiffConfigWithoutTemplates, 'dateFormat'>
-) {
+export default function formatPropertyValue(value: unknown, config: Pick<DiffConfigWithoutTemplates, 'dateFormat'>) {
   if (typeof value === 'string') {
-    return `"${value}"`;
+    return `"${value}"`
   }
 
   if (typeof value === 'number' || typeof value === 'boolean') {
-    return String(value);
+    return String(value)
   }
 
   if (typeof value === 'bigint') {
@@ -18,8 +15,8 @@ export default function formatPropertyValue(
   }
 
   if (value instanceof Date && config.dateFormat) {
-    return `${format(value, config.dateFormat)}`;
+    return `${format(value, config.dateFormat)}`
   }
 
-  return JSON.stringify(value);
+  return JSON.stringify(value)
 }
