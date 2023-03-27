@@ -1,6 +1,6 @@
 {
   "name": "human-object-diff",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Human Readable Difference Between Two Objects",
   "keywords": [
     "deep-diff",
