@@ -93,13 +93,9 @@
     "nyc": "cross-env NODE_ENV=test nyc ava",
     "test": "jest",
     "test-coverage": "yarn run lint && yarn run nyc",
-    "build": "npx esbuild --bundle src/index.ts --outdir=cjs --platform=node --format=cjs && echo '{\"type\": \"commonjs\"}' > cjs/package.json && npx esbuild --bundle src/index.ts --outdir=esm --platform=neutral --format=esm && echo '{\"type\": \"module\"}' > esm/package.json"
+    "build": "npx tsc -p tsconfig.build.json --outDir dist/ && echo '{\"type\": \"commonjs\"}' > dist/package.json"
   },
-  "exports": {
-    "require": "./cjs/index.js",
-    "import": "./esm/index.js"
-  },
-  "main": "./cjs/index.js",
+  "main": "./dist/index.js",
   "types": "./src",
   "overrides": {
     "decamelize": "4.0.0"

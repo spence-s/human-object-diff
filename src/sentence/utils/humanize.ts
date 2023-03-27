@@ -1,6 +1,6 @@
 import humanizeStr from 'humanize-string';
 import titleize from 'titleize';
-import { type DiffConfig } from '../../index.js';
+import { type DiffConfig } from '../../types';
 
 export default function humanize(
   prop: string,

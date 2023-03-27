@@ -41,7 +41,7 @@ yarn add human-object-diff
 Common JS
 
 ```typescript
-const { DiffEngine: HumanDiff } = require('human-object-diff');
+const HumanDiff = require('human-object-diff');
 
 const lhs = { foo: 'bar' };
 const rhs = { foo: 'baz' };
@@ -53,37 +53,20 @@ console.log(diff(lhs, rhs));
 // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
 ```
 
-ES Module
-
-## Configuring
-
-```typescript
-(async () => {
-  const { DiffEngine: HumanDiff } = await import('human-object-diff');
-
-  const lhs = { foo: 'bar' };
-  const rhs = { foo: 'baz' };
-  const options = {};
-
-  const { diff } = new HumanDiff(options);
-
-  console.log(diff(lhs, rhs));
-  // -> ['"Foo", with a value of "bar" (at Obj.foo) was changed to "baz"']
-})();
-```
-
 ### Options
 
 `human-object-diff` supports a variety of options to allow you to take control over the output of your object diff.
 
-| Option         | type         | Default                            | Description                                                                                     |
-| -------------- | ------------ | ---------------------------------- | ----------------------------------------------------------------------------------------------- | --------------------------------- |
-| objectName     | String       | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
-| prefilter      | \[String\]\  | Func                               |                                                                                                 | see [prefiltering](#prefiltering) |
-| dateFormat     | String       | 'MM/dd/yyyy hh:mm a'               | dateFns format string see [below](#support-for-dates)                                           |
-| ignoreArrays   | Bool         | false                              | If array differences aren't needed. Set to true and skip processing                             |
-| templates      | Object       | see [templates](#custom-templates) | Completely customize the output.                                                                |
-| sensitivePaths | \[String\]   |                                    | Paths that will use the sensitive field templates if they are defined                           |
+| Option                          | type         | Default                            | Description                                                                             |
+| ------------------------------- | ------------ | ---------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------- |
+| objectName                      | String       | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath |
+| is true                         |
+| prefilter                       | \[String\]\  | Func                               |                                                                                         | see [prefiltering](#prefiltering) |
+| dateFormat                      | String       | 'MM/dd/yyyy hh:mm a'               | dateFns format string                                                                   |
+| see [below](#support-for-dates) |
+| ignoreArrays                    | Bool         | false                              | If array differences aren't needed. Set to true and skip processing                     |
+| templates                       | Object       | see [templates](#custom-templates) | Completely customize the output.                                                        |
+| sensitivePaths                  | \[String\]   |                                    | Paths that will use the sensitive field templates if they are defined                   |
 
 ### Custom Templates
 
@@ -214,35 +197,6 @@ const diffEngine = new HumanDiff();
 diffEngine.diff(lhs, rhs);
 
 diffEngine.sentences; // -> same as the output of the last diff
-```
-
-## Migration 2.0.2 -> 3.0.3
-
-Due to [ESM](https://nodejs.org/api/packages.html#writing-dual-packages-while-avoiding-or-minimizing-hazards) release
-you have to replace default import by named import.
-
-So change
-
-```typescript
-const HumanDiff = require('human-object-diff');
-```
-
-to named version of require
-
-```typescript
-const { DiffEngine: HumanDiff } = require('human-object-diff');
-```
-
-or use import
-
-```typescript
-import { DiffEngine as HumanDiff } from 'human-object-diff';
-```
-
-or even dynamic import
-
-```typescript
-const { DiffEngine: HumanDiff } = await import('human-object-diff');
 ```
 
 ## Contributors

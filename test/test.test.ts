@@ -1,4 +1,4 @@
-import { DiffEngine as HR } from '../src/index';
+import HR from '../src/index';
 
 describe('test', () => {
   let hr: Function;

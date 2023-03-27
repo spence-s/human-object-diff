@@ -1,5 +1,5 @@
 import type deepDiff from 'deep-diff';
-import { type DiffConfigWithoutTemplates } from '../../index';
+import { type DiffConfigWithoutTemplates } from '../../types';
 
 export default function getPrefilter(
   config: DiffConfigWithoutTemplates

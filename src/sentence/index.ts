@@ -1,4 +1,4 @@
-import { type DiffConfig, type DiffConfigWithoutTemplates } from '../index';
+import { type DiffConfig, type DiffConfigWithoutTemplates } from '../types';
 import { type Change } from '../engine/utils/array-preprocessor';
 import type Diff from '../diff';
 import getNewVal from './utils/get-new-val';
