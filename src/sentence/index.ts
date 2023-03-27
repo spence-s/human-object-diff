@@ -96,11 +96,9 @@ export default class DiffSentence {
 export function isPathMathToPattern(path: string, patterns: string[]): boolean {
   return patterns.some((pattern) => {
     // Replace '[]' with a regex pattern that matches any array index
-    const regexPattern = pattern
-      .replace(/\[]/g, '\\[\\d+\\]')
-      .replace(/\[(\d+)]/g, '\\[$1\\]');
+    const regexPattern = pattern.replace(/\[]/g, '\\[\\d+\\]').replace(/\[(\d+)]/g, '\\[$1\\]')
 
-    const regex = new RegExp(`^${regexPattern}$`);
-    return regex.test(path);
-  });
+    const regex = new RegExp(`^${regexPattern}$`)
+    return regex.test(path)
+  })
 }
