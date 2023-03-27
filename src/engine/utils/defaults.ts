@@ -1,4 +1,4 @@
-import { type DefaultDiffConfig } from '../../types';
+import { type DefaultDiffConfig } from '../../types'
 
 export function defaultConfig(): DefaultDiffConfig {
   return {
@@ -19,7 +19,7 @@ export function defaultConfig(): DefaultDiffConfig {
       ES: '"FIELD" (at DOTPATH) was changed',
       IS: 'Array "FIELD" (at DOTPATH), had a value inserted at index INDEX',
       RS: 'Array "FIELD" (at DOTPATH), had a value removed at index INDEX',
-      AES: 'Array "FIELD" (at DOTPATH), had a value changed at index INDEX'
-    }
-  };
+      AES: 'Array "FIELD" (at DOTPATH), had a value changed at index INDEX',
+    },
+  }
 }

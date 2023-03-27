@@ -1,19 +1,19 @@
-import { type DiffContext } from '../index';
-import formatPropertyValue from './format-property-value';
+import { type DiffContext } from '../index'
+import formatPropertyValue from './format-property-value'
 
 export default function getNewValue(context: DiffContext): string {
-  let formatted;
+  let formatted
   if (typeof context.diff === 'string') {
-    return '';
+    return ''
   }
 
   if ('val' in context.diff && context.diff.val) {
-    formatted = formatPropertyValue(context.diff.val, context.config);
+    formatted = formatPropertyValue(context.diff.val, context.config)
   } else if ('rhs' in context.diff && context.diff.rhs) {
-    formatted = formatPropertyValue(context.diff.rhs, context.config);
+    formatted = formatPropertyValue(context.diff.rhs, context.config)
   } else {
-    formatted = '';
+    formatted = ''
   }
 
-  return formatted.replace(/"/g, '');
+  return formatted.replace(/"/g, '')
 }

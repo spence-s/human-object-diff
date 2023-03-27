@@ -1,15 +1,15 @@
-import HRDiff from '../src/index';
+import HRDiff from '../src/index'
 
 describe('arrays', () => {
-  let hr: Function;
+  let hr: Function
 
   beforeEach(() => {
-    hr = new HRDiff().diff;
-  });
+    hr = new HRDiff().diff
+  })
 
   it('humanReadable is a function', () => {
-    expect(typeof hr === 'function').toBeTruthy();
-  });
+    expect(typeof hr === 'function').toBeTruthy()
+  })
 
   it('processes an array', () => {
     const lhs = {
@@ -18,16 +18,16 @@ describe('arrays', () => {
       baz: 12,
       chip: 'dale',
       biz: { baz: [1, 2, { hello: ['then'] }, 4, 5] },
-      base: [1, 2, 3, 4, 5]
-    };
+      base: [1, 2, 3, 4, 5],
+    }
 
     const rhs = {
       foo: [1, 2, 3, 4, 5, 5, 7, 8, 9, 10, 11],
       bar: 'hello world',
       baz: 10,
       biz: { baz: [1, 2, { hello: ['there', 'was'] }, 5] },
-      base: [1, 2, 2, 5]
-    };
+      base: [1, 2, 2, 5],
+    }
 
     expect(hr(lhs, rhs)).toEqual([
       '"Bar", with a value of "hello" (at Obj.bar) was changed to "hello world"',
@@ -38,7 +38,7 @@ describe('arrays', () => {
       'Array "Biz.baz" (at Obj.biz.baz), had a value of "4" changed to "5" at index 3',
       'Array "Biz.baz[2].hello" (at Obj.biz.baz[2].hello), had a value of "then" changed to "there" at index 0',
       'Array "Base" (at Obj.base), had a value of "4" removed at index 3',
-      'Array "Base" (at Obj.base), had a value of "3" changed to "2" at index 2'
-    ]);
-  });
-});
+      'Array "Base" (at Obj.base), had a value of "3" changed to "2" at index 2',
+    ])
+  })
+})
