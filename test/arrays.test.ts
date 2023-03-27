@@ -1,4 +1,4 @@
-import { DiffEngine as HRDiff } from '../src/index';
+import HRDiff from '../src/index';
 
 describe('arrays', () => {
   let hr: Function;

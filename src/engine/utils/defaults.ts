@@ -1,4 +1,4 @@
-import { type DefaultDiffConfig } from '../../index';
+import { type DefaultDiffConfig } from '../../types';
 
 export function defaultConfig(): DefaultDiffConfig {
   return {

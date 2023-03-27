@@ -1,6 +1,6 @@
 import equal from 'fast-deep-equal';
 import type Diff from '../../diff';
-import { type DiffConfig } from '../../index';
+import { type DiffConfig } from '../../types';
 
 export type Change =
   | {

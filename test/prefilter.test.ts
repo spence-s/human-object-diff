@@ -1,4 +1,5 @@
-import { DiffEngine as HR, type InputDiffConfig } from '../src/index';
+import HR from '../src/index';
+import { type InputDiffConfig } from '../src/types';
 
 describe('prefilter', () => {
   let hr: Function;

@@ -1,7 +1,7 @@
 import deepDiff from 'deep-diff';
 import DiffSentence from '../sentence/index';
 import Diff from '../diff/index';
-import { type DiffEngineContext } from '../index';
+import { type DiffEngineContext } from '../types';
 import preProcessArrayDiffs from './utils/array-preprocessor';
 import getPrefilter from './utils/get-prefilter';
 

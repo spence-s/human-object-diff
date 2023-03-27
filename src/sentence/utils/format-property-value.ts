@@ -1,5 +1,5 @@
 import format from 'date-fns/format';
-import { type DiffConfigWithoutTemplates } from '../../index';
+import { type DiffConfigWithoutTemplates } from '../../types';
 
 export default function formatPropertyValue(
   value: unknown,
