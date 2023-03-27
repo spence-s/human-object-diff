@@ -10,6 +10,7 @@
     "import/no-anonymous-default-export": "off",
     "@typescript-eslint/comma-dangle": "off",
     "@typescript-eslint/ban-types": "off",
-    "@typescript-eslint/no-unsafe-call": "off"
+    "@typescript-eslint/no-unsafe-call": "off",
+    "capitalized-comments": "off"
   }
 }

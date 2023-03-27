@@ -21,7 +21,11 @@ export type Change =
       val: unknown;
     };
 
-export default function preProcessArray(
+export function splitPath(path: string): string[] {
+  return path.split(/\.|\[|\]/gi).filter(Boolean);
+}
+
+export function preProcessArrayDiffs(
   diffs: Diff[] = [],
   lhs: unknown = [],
   rhs: unknown = []
@@ -35,7 +39,7 @@ export default function preProcessArray(
       let lhsValue = lhs;
       let rhsValue = rhs;
 
-      for (const p of path.split(/[.[]]/gi).filter(Boolean)) {
+      for (const p of splitPath(path)) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
         lhsValue = lhsValue[p];
@@ -57,12 +61,12 @@ export default function preProcessArray(
               ...diff,
               dotPath: path,
               kind: 'AE',
-              path: path.split(/[.[]]/gi).filter(Boolean)
+              path: splitPath(path)
             })
           )
       ].map((diff) => ({
         ...diff,
-        path: path.split(/[.[]]/gi).filter(Boolean),
+        path: splitPath(path),
         dotPath: path
       }));
       diffStrings = [...diffStrings, ...changes];
