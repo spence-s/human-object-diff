@@ -57,16 +57,14 @@ console.log(diff(lhs, rhs))
 
 `human-object-diff` supports a variety of options to allow you to take control over the output of your object diff.
 
-| Option                          | type         | Default                            | Description                                                                             |
-| ------------------------------- | ------------ | ---------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------- |
-| objectName                      | String       | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath |
-| is true                         |
-| prefilter                       | \[String\]\  | Func                               |                                                                                         | see [prefiltering](#prefiltering) |
-| dateFormat                      | String       | 'MM/dd/yyyy hh:mm a'               | dateFns format string                                                                   |
-| see [below](#support-for-dates) |
-| ignoreArrays                    | Bool         | false                              | If array differences aren't needed. Set to true and skip processing                     |
-| templates                       | Object       | see [templates](#custom-templates) | Completely customize the output.                                                        |
-| sensitivePaths                  | \[String\]   |                                    | Paths that will use the sensitive field templates if they are defined                   |
+| Option         | Type     | Default                            | Description                                                                                     |
+| -------------- | -------- | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
+| objectName     | String   | 'Obj'                              | This is the object name when presented in the path. ie... "Obj.foo" ignored if hidePath is true |
+| prefilter      | [String] | Func                               | See [prefiltering](#prefiltering)                                                               |
+| dateFormat     | String   | 'MM/dd/yyyy hh:mm a'               | dateFns format string, see [below](#support-for-dates)                                          |
+| ignoreArrays   | Bool     | false                              | If array differences aren't needed, set to true and skip processing                             |
+| templates      | Object   | see [templates](#custom-templates) | Completely customize the output                                                                 |
+| sensitivePaths | [String] |                                    | Paths that will use the sensitive field templates if they are defined, use [] as any index      |
 
 ### Custom Templates
 
@@ -203,11 +201,11 @@ diffEngine.sentences // -> same as the output of the last diff
 
 | Name               | Website                    |
 | ------------------ | -------------------------- |
-| **Spencer Snyder** | <http://spencersnyder.io/> |
+| **Spencer Snyder** | <https://spencersnyder.io/> |
 
 ## License
 
-[MIT](LICENSE) © [Spencer Snyder](http://spencersnyder.io/)
+[MIT](LICENSE) © [Spencer Snyder](https://spencersnyder.io/)
 
 ##
 
