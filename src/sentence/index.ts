@@ -5,6 +5,11 @@ import getNewVal from './utils/get-new-val'
 import getField from './utils/get-field'
 import getDotpath from './utils/get-dot-path'
 import getOldVal from './utils/get-old-val'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import replaceAll from 'string.prototype.replaceall'
+
+replaceAll.shim()
 
 type Token = 'FIELD' | 'DOTPATH' | 'NEWVALUE' | 'OLDVALUE' | 'INDEX' | 'POSITION'
 
