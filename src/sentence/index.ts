@@ -14,14 +14,6 @@ export type DiffContext = {
   templates: DiffConfig['templates']
 }
 
-export function replaceAllTokens(str: string, token: Token, value: string): string {
-  while (str.includes(token) && !value.includes(token)) {
-    str = str.replace(token, value)
-  }
-
-  return str
-}
-
 export default class DiffSentence {
   private readonly template: string
   private readonly diff: string | Change | Diff
@@ -56,7 +48,7 @@ export default class DiffSentence {
     let sentence = this.template
     const tokens: Token[] = ['FIELD', 'DOTPATH', 'NEWVALUE', 'OLDVALUE', 'INDEX', 'POSITION']
     for (const token of tokens) {
-      sentence = replaceAllTokens(sentence, token, this[token])
+      sentence = sentence.replace(new RegExp(token, 'g'), this[token])
     }
 
     return sentence
