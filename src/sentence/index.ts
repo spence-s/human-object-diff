@@ -48,7 +48,7 @@ export default class DiffSentence {
     let sentence = this.template
     const tokens: Token[] = ['FIELD', 'DOTPATH', 'NEWVALUE', 'OLDVALUE', 'INDEX', 'POSITION']
     for (const token of tokens) {
-      sentence = sentence.replace(token, this[token])
+      sentence = sentence.replaceAll(token, this[token])
     }
 
     return sentence
