@@ -1,10 +1,10 @@
-import { type DiffConfig, type DiffConfigWithoutTemplates } from '../types';
-import { type Change } from '../engine/utils/array-preprocessor';
-import type Diff from '../diff';
-import { getNewValue } from './utils/get-new-val';
-import getField from './utils/get-field';
-import getDotpath from './utils/get-dot-path';
-import getOldVal from './utils/get-old-val';
+import { type DiffConfig, type DiffConfigWithoutTemplates } from '../types'
+import { type Change } from '../engine/utils/array-preprocessor'
+import type Diff from '../diff'
+import { getNewValue } from './utils/get-new-val'
+import getField from './utils/get-field'
+import getDotpath from './utils/get-dot-path'
+import getOldVal from './utils/get-old-val'
 
 type Token = 'FIELD' | 'DOTPATH' | 'NEWVALUE' | 'OLDVALUE' | 'INDEX' | 'POSITION'
 

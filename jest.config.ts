@@ -3,9 +3,9 @@ export default {
     '^.+\\.tsx?$': [
       'esbuild-jest',
       {
-        target: 'ES2020'
-      }
-    ]
+        target: 'ES2020',
+      },
+    ],
   },
   testEnvironment: 'node',
 }

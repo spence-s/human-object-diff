@@ -11,7 +11,7 @@ export default function formatPropertyValue(value: unknown, config: Pick<DiffCon
   }
 
   if (typeof value === 'bigint') {
-    return `${String(value)}n`;
+    return `${String(value)}n`
   }
 
   if (value instanceof Date && config.dateFormat) {
