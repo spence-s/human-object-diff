@@ -1,4 +1,5 @@
 import HR from '../src/index'
+import { replaceAllTokens } from '../src/sentence'
 
 describe('custom-templates', () => {
   let hr: Function
@@ -43,5 +44,21 @@ describe('custom-templates', () => {
       'testing Arr "Arr2" (Obj.arr2), "3" removed at 2',
       'testing Arr "Arr3" (Obj.arr3), "3" "4" changed at 2',
     ])
+  })
+
+  it('replaceAllTokens for single value', () => {
+    expect(replaceAllTokens('NEWVALUE -> OLDVALUE', 'NEWVALUE', 'new')).toEqual('new -> OLDVALUE')
+  })
+
+  it('replaceAllTokens for single value', () => {
+    expect(replaceAllTokens('FIELD: NEWVALUE -> FIELD: OLDVALUE', 'FIELD', 'key')).toEqual(
+      'key: NEWVALUE -> key: OLDVALUE'
+    )
+  })
+
+  it('replaceAllTokens avoid infinite loop', () => {
+    expect(replaceAllTokens('FIELD: NEWVALUE -> FIELD: OLDVALUE', 'FIELD', 'FIELD')).toEqual(
+      'FIELD: NEWVALUE -> FIELD: OLDVALUE'
+    )
   })
 })

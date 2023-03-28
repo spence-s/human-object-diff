@@ -5,11 +5,6 @@ import getNewVal from './utils/get-new-val'
 import getField from './utils/get-field'
 import getDotpath from './utils/get-dot-path'
 import getOldVal from './utils/get-old-val'
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-import replaceAll from 'string.prototype.replaceall'
-
-replaceAll.shim()
 
 type Token = 'FIELD' | 'DOTPATH' | 'NEWVALUE' | 'OLDVALUE' | 'INDEX' | 'POSITION'
 
@@ -17,6 +12,14 @@ export type DiffContext = {
   diff: string | Change | Diff
   config: DiffConfigWithoutTemplates
   templates: DiffConfig['templates']
+}
+
+export function replaceAllTokens(str: string, token: Token, value: string): string {
+  while (str.includes(token) && !value.includes(token)) {
+    str = str.replace(token, value)
+  }
+
+  return str
 }
 
 export default class DiffSentence {
@@ -53,7 +56,7 @@ export default class DiffSentence {
     let sentence = this.template
     const tokens: Token[] = ['FIELD', 'DOTPATH', 'NEWVALUE', 'OLDVALUE', 'INDEX', 'POSITION']
     for (const token of tokens) {
-      sentence = sentence.replaceAll(token, this[token])
+      sentence = replaceAllTokens(sentence, token, this[token])
     }
 
     return sentence
