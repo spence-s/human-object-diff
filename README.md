@@ -157,11 +157,11 @@ const prefilter = (path, key) => path[0] === 'foo' && key === 'bar'
 > \*\*There are known bug related to arrays of objects. We plan to release different array processing algorithms in the
 > future that can handle more complex objects. As of the latest version it is reccomended to only diff between flat
 > arrays
-> of strings and numbers. Otherwise there isn't guarantee of accuracy or if diffs won't be duplicated in some ways.
+> of strings and numbers. Otherwise, there isn't guarantee of accuracy or if diffs won't be duplicated in some ways.
 
 `human-object-diff` parses arrays in an opinionated way. It does it's best to resolve Arrays into groups of insertions
 and removals. Typical diff libraries look at arrays on an element by element basis and emit a difference for every
-changes element. While this is benefical for many programatic tasks, humans typically don't look at arrays in the same
+changes element. While this is beneficial for many programmatic tasks, humans typically don't look at arrays in the same
 way. `human-object-diff` attempts to reduce array changes to a number of insertions, removals, and edits. An example can
 better describe the difference.
 

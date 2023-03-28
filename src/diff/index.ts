@@ -9,7 +9,7 @@ export default class Diff {
   public readonly rhs: unknown
   public index: number | undefined
   public readonly path: unknown[] | undefined
-  public val: unknown // Seems to be invalid // TODO this is probably bug
+  public val: unknown
   public readonly dotPath: string
   readonly kind: 'N' | 'D' | 'A' | 'E'
   private readonly item: deepDiff.Diff<unknown, unknown> | undefined
